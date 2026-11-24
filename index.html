@@ -83,6 +83,72 @@ aside{border-left:1px solid var(--line);display:flex;flex-direction:column;min-h
 .help{font-size:12.5px;color:var(--sub);padding:6px 14px 10px;line-height:1.7;border-top:1px solid var(--line)}
 kbd{background:#34312b;border:1px solid #4a463d;border-radius:4px;padding:0 5px;font-size:12px;color:var(--ink)}
 
+/* 見せ方の切りかえ・アニメ */
+.viewbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding-bottom:8px}
+.viewbar .grp{display:flex;gap:4px;align-items:center;margin-right:12px}
+.viewbar .lbl{color:var(--sub);font-size:13px;margin-right:2px}
+.viewbar button{padding:4px 10px;font-size:14px}
+.views{flex:1;min-height:0;display:flex;gap:8px}
+.views .vwrap{flex:1}
+.anim{flex:1;min-width:0;min-height:0;display:none;flex-direction:column;background:#11100e;border-radius:8px;
+  padding:6px;position:relative;overflow:hidden}
+.views.v-both .anim,.views.v-anim .anim{display:flex}
+.views.v-anim .vwrap{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.anim svg{width:100%;display:block;min-height:0}
+#map{flex:1.7 1 0}
+#fig{flex:1 1 0;background:linear-gradient(#2a251e,#5a4a36);border-radius:6px}
+.cap{font-size:17px;line-height:1.5;padding:4px 8px 2px;min-height:3.2em}
+.cap .who{display:inline-block;min-width:3.6em;font-weight:bold}
+.cap .nx{color:var(--sub);font-size:14px}
+.cap .cd{color:var(--accent);font-variant-numeric:tabular-nums}
+.cap .dim{color:#77715f}
+.views.v-anim .cap{font-size:21px}
+
+/* 鳴り物 */
+.lane{position:relative;height:16px;margin-top:4px;background:#2a2722;border-radius:4px;overflow:hidden;cursor:pointer}
+.lane .nb{position:absolute;top:0;bottom:0}
+.nari{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.72);border-radius:8px;padding:6px 10px;
+  font-size:15px;line-height:1.45;pointer-events:none;max-width:calc(100% - 20px)}
+.nari .now{font-size:19px;font-weight:bold}
+.nari .chip{display:inline-block;padding:0 7px;border-radius:5px;color:#111;font-weight:bold}
+.nari .soon{color:#ffe9a8}
+.nari.flash{animation:fl .5s ease-out}
+@keyframes fl{0%{box-shadow:0 0 0 6px #fff}100%{box-shadow:0 0 0 0 transparent}}
+.nari.hidden{display:none}
+.anim .nari{position:static;margin:2px 4px 0;background:#1f1d19}
+.views.v-both .vwrap .nari{display:none}
+.quiz{display:none;position:fixed;left:50%;top:44%;transform:translate(-50%,-50%);z-index:20;background:#262420;
+  border:2px solid var(--accent);border-radius:14px;padding:18px 20px;width:min(720px,94vw);box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.quiz.show{display:block}
+.quiz h3{margin:0 0 6px;font-size:22px}
+.quiz .hint{color:var(--sub);margin-bottom:12px;line-height:1.6}
+.quiz .ch{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.quiz .ch button{text-align:left;padding:10px 12px;font-size:16px;border-left-width:8px}
+.quiz .res{margin-top:12px;font-size:18px;line-height:1.6}
+.quiz .ok{color:#8fdc8f;font-weight:bold}.quiz .ng{color:#ff8f8f;font-weight:bold}
+.tpad{display:none;position:fixed;left:50%;bottom:70px;transform:translateX(-50%);z-index:19;background:rgba(30,28,24,.95);
+  border:2px solid var(--accent);border-radius:12px;padding:10px;gap:6px;flex-wrap:wrap;justify-content:center;width:min(980px,96vw)}
+.tpad.show{display:flex}
+.tpad button{font-size:16px;padding:10px 12px;border-bottom-width:6px}
+.tpad .msg{width:100%;text-align:center;font-size:18px;min-height:1.5em}
+.tpad .stopb{background:#5a2a2a}
+.ncard{display:grid;grid-template-columns:16px 1fr;gap:4px 10px;align-items:start;padding:7px 0;border-bottom:1px dashed #3d3a33}
+.ncard .sw{width:16px;height:100%;min-height:36px;border-radius:4px}
+.ncard b{font-size:16px}
+.ncard .when{color:#e6dfd0;font-size:14px;line-height:1.55}
+.chain{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:15px;margin:8px 0 2px}
+.chain span{padding:3px 8px;border-radius:6px;color:#111;font-weight:bold}
+.qbtns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.qbtns button{font-size:14px}
+.score{font-size:15px;line-height:1.7;background:#1f1d19;border-radius:8px;padding:8px 10px;margin-top:6px}
+table.cues{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+table.cues td{padding:4px 4px;border-bottom:1px solid #34312b;vertical-align:top}
+table.cues tr{cursor:pointer}
+table.cues tr:hover{background:#2f2c26}
+table.cues tr.cur{background:rgba(233,161,59,.18)}
+table.cues .tt{font-variant-numeric:tabular-nums;color:var(--sub);white-space:nowrap}
+.steps li.now{outline:2px solid #fff;outline-offset:-2px}
+
 /* 印刷（一覧表示を紙に） */
 @media print{
   body{background:#fff;color:#000}
@@ -112,12 +178,34 @@ kbd{background:#34312b;border:1px solid #4a463d;border-radius:4px;padding:0 5px;
   </header>
 
   <section class="stage">
+    <div class="viewbar">
+      <div class="grp"><span class="lbl">見せ方</span>
+        <button data-view="video">動画</button><button data-view="both" class="on">並べる</button><button data-view="anim">アニメ</button>
+      </div>
+      <div class="grp"><span class="lbl">アニメ</span>
+        <button data-ver="kuma" class="on">🐻 熊版</button><button data-ver="kari">🏹 狩人版</button>
+      </div>
+      <div class="grp"><span class="lbl">図の向き</span>
+        <button data-ori="zu" class="on" title="動き表の図と同じ（上が客席）">動き表と同じ</button><button data-ori="cam" title="動画と同じ（客席から見た向き）">動画と同じ</button>
+      </div>
+    </div>
+    <div class="views" id="views">
     <div class="vwrap" id="vwrap">
       <video id="v" src="kumamai.mp4" preload="auto" playsinline></video>
       <div class="badge" id="badge">—</div>
       <div class="mirrorTag">鏡モード（左右反転）</div>
       <div class="err" id="err">動画（kumamai.mp4）が読み込めません。<br>この index.html と同じフォルダに kumamai.mp4 があるか確かめてください。</div>
+      <div class="nari" id="nariV"></div>
     </div>
+    <div class="anim" id="anim">
+      <svg id="map" viewBox="0 0 1000 540" preserveAspectRatio="xMidYMid meet"></svg>
+      <svg id="fig" viewBox="0 0 1000 310" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="cap" id="cap"></div>
+      <div class="nari" id="nariA"></div>
+    </div>
+    </div>
+    <div class="quiz" id="quiz"></div>
+    <div class="tpad" id="tpad"></div>
     <div class="ctrl">
       <div class="grp">
         <button id="prev" title="前の場面（↑）">◀ 場面</button>
@@ -142,6 +230,7 @@ kbd{background:#34312b;border:1px solid #4a463d;border-radius:4px;padding:0 5px;
     <div class="tabs">
       <button id="tabNow" class="on">いまの場面</button>
       <button id="tabAll">ぜんぶの場面</button>
+      <button id="tabNari">🥁 鳴り物</button>
       <button id="printBtn" title="ぜんぶの場面を紙に印刷">印刷</button>
     </div>
     <div class="legend">
@@ -157,6 +246,7 @@ kbd{background:#34312b;border:1px solid #4a463d;border-radius:4px;padding:0 5px;
 
   <div class="bar">
     <div class="track" id="track"><div class="head" id="head"></div></div>
+    <div class="lane" id="lane" title="鳴り物（色＝通常ではない所）"><div class="head" id="head2"></div></div>
   </div>
 </div>
 
@@ -249,7 +339,7 @@ function musicHtml(m){
   return m.map(([who,txt])=>`<div><span class="who">${who||"楽器"}</span>${esc(txt).replace(/\[(.+?)\]/g,'<span class="k">$1</span>')}</div>`).join("");
 }
 function cardHtml(s, withNext){
-  const steps = s.steps.map(x=> x.startsWith("!") ? `<li class="key">${roles(x.slice(1))}</li>` : `<li>${roles(x)}</li>`).join("");
+  const steps = s.steps.map((x,k)=> x.startsWith("!") ? `<li data-i="${k}" class="key">${roles(x.slice(1))}</li>` : `<li data-i="${k}">${roles(x)}</li>`).join("");
   const nx = S[s.n]; // 次の場面
   return `<div class="card" id="c${s.n}">
     <h2>場面${s.n}<span class="t">${s.tGuess?"目安 ":""}${s.t}〜</span>${s.call?`<span class="call">${esc(s.call)}</span>`:""}
@@ -287,6 +377,7 @@ function seek(t){ v.currentTime = Math.min(Math.max(t,T0),T1-0.1)-OFFSET; }
 function goScene(i, play=true){ i=Math.max(0,Math.min(S.length-1,i)); seek(S[i].start+0.05); if(play) v.play(); }
 
 function render(){
+  if(mode==="nari"){ if(window.renderNari) renderNari(); return; }
   if(mode==="all"){
     panel.innerHTML = S.map(s=>cardHtml(s,false)).join("");
   }else{
@@ -350,9 +441,12 @@ function toggleMirror(){ v.classList.toggle("mirror"); const on=v.classList.cont
 loopBtn.onclick=toggleLoop; stopBtn.onclick=toggleStop; mirBtn.onclick=toggleMirror;
 
 const tabNow=document.getElementById("tabNow"), tabAll=document.getElementById("tabAll");
-tabNow.onclick=()=>{mode="now";tabNow.classList.add("on");tabAll.classList.remove("on");render();};
-tabAll.onclick=()=>{mode="all";tabAll.classList.add("on");tabNow.classList.remove("on");render();};
-document.getElementById("printBtn").onclick=()=>{ if(mode!=="all") tabAll.onclick(); setTimeout(()=>window.print(),300); };
+const tabNari=document.getElementById("tabNari");
+function setTab(m){ mode=m; tabNow.classList.toggle("on",m==="now"); tabAll.classList.toggle("on",m==="all"); tabNari.classList.toggle("on",m==="nari"); render(); }
+tabNow.onclick=()=>setTab("now");
+tabAll.onclick=()=>setTab("all");
+tabNari.onclick=()=>setTab("nari");
+document.getElementById("printBtn").onclick=()=>{ if(mode==="now") setTab("all"); setTimeout(()=>window.print(),300); };
 panel.addEventListener("click",e=>{ const b=e.target.closest("[data-go]"); if(b) goScene(+b.dataset.go-1); });
 
 document.addEventListener("keydown",e=>{
@@ -370,5 +464,716 @@ document.addEventListener("keydown",e=>{
 });
 render();
 </script>
+<!-- ANIM -->
+<script>
+// ===================================================================
+//  アニメ（上から見た立ち位置＋人形）と 鳴り物
+//  時刻はすべて元動画（＝動き表）の時刻。動画を1秒ごとに見て決めた目安。
+// ===================================================================
+const T = s => { const [m,x]=String(s).split(":"); return (+m)*60+(+x); };
+
+// ---- 動き（キーフレーム） -----------------------------------------
+// [時刻, x, y, ポーズ] … その時刻にその場所へ着く（前の点からまっすぐ移動）
+// [時刻, ポーズ]       … その場でポーズだけ変える
+// [時刻, x, y]         … 位置だけ
+// x:0〜100＝動き表の図の左→右（演者から見た左→右）  y:0〜50＝上（客席側）→下（楽器隊側）
+const KF = {
+ H:[ // 狩人
+  ['5:55','hide'],
+  ['6:03',95,44,'walk'],['6:08',55,28],['6:12',88,8],['6:13','stretch'],
+  ['6:25',88,8,'walk'],['6:34',12,8],['6:35','stretch'],
+  ['6:45',12,8,'walk'],['6:50',50,26],['6:51','stretch'],['6:57','towel'],
+  ['7:05','stand'],['7:08',50,26,'crouchwalk'],['7:11',80,8,'ear'],
+  ['7:21',80,8,'crouchwalk'],['7:29',20,8],['7:30','ear'],['7:35','call'],
+  ['7:43',20,8,'flute'],['7:55',96,46],['7:56','hide'],
+  ['11:44',96,40,'walk'],['11:52',80,7],['11:53','stretchlook'],
+  ['12:03',80,7,'walk'],['12:10',12,7],['12:11','stretchlook'],
+  ['12:22',12,7,'walk'],['12:28',62,36],['12:29','surprise'],
+  ['12:31',62,36,'run'],['12:32.5',32,41,'surprise'],['12:33.5',32,41,'walk'],['12:34.5',50,20,'nam'],['12:36','lookLR'],
+  ['12:39',50,20,'walk'],['12:41',70,36,'wave'],['12:49','hit'],['12:53',70,36,'surprise'],['12:54.5',62,30],
+  ['12:55',62,30,'walk'],['12:56',50,20,'nam'],['13:00','look'],['13:03',50,20,'walk'],['13:05',30,36,'crouch'],
+  ['13:17','hit'],['13:20',30,36,'surprise'],['13:21',50,20,'nam'],
+  ['13:25','look'],['13:28','think'],['13:34',50,20,'point'],['13:36',62,20],['13:38',38,20],['13:41',50,22],
+  ['13:42','drink'],['13:54','sleep'],
+  ['14:36','yame'],['14:37','sleep'],
+  ['14:58',50,22,'roll'],['14:59',38,28],['15:00',26,19],['15:01','stand'],['15:02','surprise'],
+  ['15:03',26,19,'run'],['15:05',66,37,'surprise'],['15:06',66,37,'run'],['15:08',52,18,'help'],
+  ['15:13','nam'],['15:15','namlie'],
+  ['15:28','roll'],['15:29.2','namlie'],['15:33','roll'],['15:34.2','namlie'],['15:45','kneelnam'],
+  ['16:06',52,18,'walk'],['16:07',52,17,'grab'],['16:10','stand'],
+  ['16:30','nam'],['16:33','look'],['16:36','think'],['16:38',52,17,'heave'],['16:41',66,17],['16:44',52,17],
+  ['16:45','beckon'],['16:51','pour'],['17:02',52,15,'stand'],
+  ['17:33','yohai'],['17:35','yohai3'],['17:39','stand'],
+  ['17:43',52,15,'walk'],['17:47',51,27,'stand'],['17:49','yohai'],['17:51','stand'],
+  ['18:32','yohai'],['18:34','stand'],
+  ['18:48',53,26,'walk'],['18:52',40,26,'stand'],['18:53','yohai'],['18:55','stand'],
+  ['19:04',40,26,'walk'],['19:06',53,27,'yohai'],['19:08','stand'],
+  ['19:16','yohai'],['19:18','stand'],
+  ['19:27.5','yohai'],['19:29.5','stand'],
+  ['19:34','yohai'],['19:36','stand'],
+ ],
+ F:[ // 女熊
+  ['5:55','hide'],
+  ['8:01',96,45,'walk4'],['8:10',85,35],['8:20',50,6],['8:26',14,10],['8:35',10,40],['8:42',35,42],['8:50',66,18],['8:51','stand'],
+  ['9:05','gurukachi'],['9:07.5','crouch'],['9:10','jump'],['9:11',66,18,'back'],['9:14',66,26,'stand'],
+  ['9:15','jump'],['9:16',66,20],['9:17.5',66,26],['9:19',66,20],['9:20','stand'],['9:21','gurukachi'],['9:24','stand'],
+  ['9:25',66,20,'walk4'],['9:28',50,5],['9:31',20,10],['9:36',12,30],['9:41',40,42],['9:45',70,40],['9:52',66,20],
+  ['9:53',58,18,'hop'],['10:05','stand'],['10:10','kickfake'],['10:14','guru'],
+  ['10:18',58,18,'jump'],['10:19',52,18],['10:20',62,18],['10:21',52,18],['10:23',85,18,'roll'],['10:26','stand4'],
+  ['10:30',85,18,'walk4'],['10:33',68,17],['10:36',62,35],['10:39',52,13],['10:40','stand'],
+  ['10:40.5',48,8,'ride'],['10:42','ridekachi'],['10:54','down'],['10:55',56,10,'stand4'],
+  ['10:57',56,10,'walk4'],['11:12',14,40],['11:20',12,42,'sleep'],
+  ['13:20','thrash'],['13:21','sleep'],
+  ['14:13','stand'],['14:15',12,42,'sneak'],['14:30',64,19],['14:31','poke'],['14:36','stand'],
+  ['14:37',64,19,'backstep'],['14:45',76,20,'stand'],['14:46',76,20,'walk4'],['14:47.5',58,30],['14:49',40,20,'sit'],
+  ['14:55','poke'],['14:57','sit'],
+  ['15:28.5',40,20,'walk4'],['15:29.5',45,17,'poke'],['15:33.5',45,17,'stand'],['15:34.5',36,16,'tongue'],['15:45','stand'],
+  ['15:50',36,16,'walk'],['15:51',46,15,'headtouch'],['15:54','stand'],
+  ['15:55',46,15,'turnout'],['15:57','kachi'],['16:05',46,15,'back'],['16:07',32,15,'stand'],['16:09','fall'],
+  ['16:11',32,15,'walk4'],['16:20',14,38,'sit'],
+  ['16:51',14,38,'walk4'],['16:55',40,17,'drink'],['17:02','stand4'],
+  ['17:03',40,17,'walk4'],['17:06',45,4],['17:10',80,6],['17:14',92,28],['17:18',86,42],['17:24',75,35],['17:31',67,21,'stand'],
+  ['17:34','pyon'],['17:35','stand'],['17:39',67,21,'back'],['17:42',67,30,'stand'],
+  ['17:43',67,30,'walk'],['17:47',67,21,'stand'],['17:51','oshichi'],['17:54','down'],['17:55','stand'],
+  ['17:58',67,21,'walk4'],['18:01',75,5],['18:05',30,4],['18:09',8,25],['18:15',22,40,'stand'],
+  ['18:39',22,40,'walk4'],['18:45',66,28,'stand'],
+  ['18:49',66,28,'walk'],['18:52',57,26,'stand'],['18:54',57,26,'oshichiwalk'],['18:57',57,8],['19:00',88,15],['19:03',85,42],['19:05',75,41,'stand'],
+  ['19:12',75,41,'walk4'],['19:15',68,28,'stand'],
+  ['19:17','pyon3'],['19:20',68,28,'roll'],['19:21.5',68,8,'lie'],['19:24',68,8,'walk4'],['19:27',67,14,'stand'],
+  ['19:32.5','stomp'],['19:33.5','stand'],
+  ['19:36','oshichi'],['19:40.5','down'],['19:41','stand'],
+ ],
+ M:[ // 男熊
+  ['5:55','hide'],
+  ['8:25',96,45,'walk4'],['8:35',80,30],['8:42',55,12],['8:50',34,18],['8:51','stand'],
+  ['9:05','gurukachi'],['9:07.5','crouch'],['9:10','jump'],['9:11',34,18,'back'],['9:14',34,26,'stand'],
+  ['9:15','jump'],['9:16',34,20],['9:17.5',34,26],['9:19',34,20],['9:20','stand'],['9:21','gurukachi'],['9:24','stand'],
+  ['9:33',34,20,'walk4'],['9:36',25,6],['9:39',8,22],['9:43',25,42],['9:47',58,42],['9:50',48,28],
+  ['9:53',40,18,'kickface'],['10:05','crouch'],['10:14','guru'],
+  ['10:18',40,18,'jump'],['10:19',46,18],['10:20',36,18],['10:21',46,18],['10:23',15,18,'roll'],['10:26','stand4'],
+  ['10:30',15,18,'walk4'],['10:33',30,19],['10:38',48,8,'crouch'],['10:56','stand4'],
+  ['10:57',48,8,'walk4'],['11:12',86,40],['11:20',88,42,'sleep'],
+  ['12:53','thrash'],['12:55','sleep'],
+  ['15:15',88,42,'walk4'],['15:21',66,17,'stand4'],
+  ['15:22','kick'],['15:28','stand4'],['15:33.5',66,17,'stand'],['15:34.5',68,16,'tongue'],['15:45','stand'],
+  ['15:50',68,16,'walk'],['15:51',58,15,'headtouch'],['15:54','stand'],
+  ['15:55',58,15,'turnout'],['15:57','kachi'],['16:05',58,15,'back'],['16:07',72,15,'stand'],['16:09','fall'],
+  ['16:11',72,15,'walk4'],['16:20',88,39,'sit'],
+  ['16:55',88,39,'walk4'],['17:00',66,17,'drink'],['17:02','stand4'],
+  ['17:03',66,17,'walk4'],['17:06',55,4],['17:10',20,6],['17:14',8,28],['17:18',14,42],['17:24',25,35],['17:31',34,21,'stand'],
+  ['17:34','pyon'],['17:35','stand'],
+  ['17:51','kachi'],['17:55','stand'],
+  ['17:58',34,21,'walk4'],['18:00',25,5],['18:04',75,4],['18:08',92,28],['18:14',75,42],['18:25',40,26,'stand'],
+  ['18:34','pyon3'],['18:37.5',40,26,'roll'],['18:39',20,27,'lie'],['18:43','stand4'],
+  ['19:02',20,27,'walk4'],['19:05',40,27,'stand'],['19:07','pyon3'],['19:10',40,27,'roll'],['19:11.5',40,8,'lie'],
+  ['19:14',40,8,'walk4'],['19:16',38,14,'stand'],
+  ['19:30','oshichi'],['19:33','down'],['19:33.5','stand'],
+  ['19:36','oshichi'],['19:40.5','down'],['19:41','stand'],
+ ],
+};
+
+// ---- 各場面の①②…が始まる時刻と、だれの動きか -----------------------
+// H=狩人 F=女熊 M=男熊 B=熊2頭 A=全員（組み合わせ可）
+const ST = {
+ 1:[['6:03','H'],['6:13','H'],['6:25','H'],['6:45','H']],
+ 2:[['7:05','H'],['7:21','H'],['7:43','H']],
+ 3:[['8:01','F'],['8:25','M']],
+ 4:[['9:05','B'],['9:08','B'],['9:11','B'],['9:15','B'],['9:21','B']],
+ 5:[['9:25','F'],['9:33','M'],['9:44','B']],
+ 6:[['9:53','F'],['9:53','M'],['10:05','M'],['10:10','F'],['10:14','B'],['10:18','B']],
+ 7:[['10:30','M'],['10:33','F'],['10:40','F'],['10:42','F']],
+ 8:[['10:57','B'],['11:20','B']],
+ 9:[['11:44','H'],['12:03','H'],['12:22','H']],
+ 10:[['12:29','H'],['12:34','H'],['12:36','H']],
+ 11:[['12:39','H'],['12:42','H'],['12:49','H'],['12:53','M']],
+ 12:[['12:55','H'],['13:00','H'],['13:03','H'],['13:17','H'],['13:20','F']],
+ 13:[['13:21','H'],['13:25','H'],['13:28','H'],['13:34','H'],['13:42','H'],['13:54','H']],
+ 14:[['14:13','F'],['14:15','F'],['14:31','F'],['14:36','H'],['14:37','F'],['14:46','FH']],
+ 15:[['14:58','H'],['15:02','H'],['15:03','H'],['15:06','H'],['15:13','H'],['15:15','M']],
+ 16:[['15:22','MH'],['15:29','FH'],['15:34','B'],['15:35','B'],['15:45','H'],['15:51','B']],
+ 17:[['15:55','B'],['15:57','B'],['16:05','B'],['16:07','HB'],['16:09','B'],['16:11','B']],
+ 18:[['16:30','H'],['16:36','H'],['16:38','H'],['16:45','HF'],['16:48','HM'],['16:51','BH']],
+ 19:[['17:03','F'],['17:03','M']],
+ 20:[['17:32','B'],['17:33','H'],['17:34','B'],['17:35','H'],['17:39','F']],
+ 21:[['17:43','H'],['17:49','H'],['17:51','B'],['17:54','F']],
+ 22:[['17:58','F'],['17:58','M']],
+ 23:[['18:32','H'],['18:34','M'],['18:37.5','M'],['18:39','F']],
+ 24:[['18:48','H'],['18:54','F']],
+ 25:[['19:06','H'],['19:07','M'],['19:10','M'],['19:12','F']],
+ 26:[['19:16','H'],['19:17','F'],['19:20','F']],
+ 27:[['19:27.5','H'],['19:30','M'],['19:32.5','F'],['19:33.5','A']],
+ 28:[['19:34','H'],['19:36','B']],
+};
+S.forEach(s=>{ s.st=(ST[s.n]||[]).map(([t,w])=>({t:T(t),w})); });
+
+// ---- キーフレームの下ごしらえ ----
+const ACT={};
+for(const id of ["H","F","M"]){
+  const pos=[],pose=[];
+  for(const e of KF[id]){
+    const t=T(e[0]);
+    if(e.length===2) pose.push({t,p:e[1]});
+    else { pos.push({t,x:e[1],y:e[2]}); if(e.length===4) pose.push({t,p:e[3]}); }
+  }
+  pos.sort((a,b)=>a.t-b.t); pose.sort((a,b)=>a.t-b.t);
+  ACT[id]={pos,pose,face:id==="M"?1:-1};
+}
+function posAt(id,t){
+  const P=ACT[id].pos;
+  if(t<=P[0].t) return {x:P[0].x,y:P[0].y,dx:0,dy:0,mv:false};
+  for(let i=1;i<P.length;i++) if(t<P[i].t){
+    const a=P[i-1],b=P[i],k=(t-a.t)/(b.t-a.t),dx=b.x-a.x,dy=b.y-a.y;
+    return {x:a.x+dx*k,y:a.y+dy*k,dx,dy,mv:Math.hypot(dx,dy)>0.5};
+  }
+  const L=P[P.length-1]; return {x:L.x,y:L.y,dx:0,dy:0,mv:false};
+}
+function poseAt(id,t){
+  const P=ACT[id].pose; let r={p:"hide",t0:0};
+  for(const e of P){ if(e.t<=t) r={p:e.p,t0:e.t}; else break; }
+  return r;
+}
+
+// ---- ポーズの名前（画面に出す言葉） ----
+const LBL={
+ H:{walk:"歩く",run:"走る",crouchwalk:"かがんで進む",stretch:"背伸び",stretchlook:"背伸びキョロ",look:"きょろきょろ",
+   lookLR:"男熊→女熊を見る",towel:"伸びて手ぬぐい",ear:"かき分け耳",call:"「おーい熊が出るぞ！」",flute:"笛を吹きながら",
+   surprise:"びっくり",nam:"南無南無",wave:"手をフリフリ",hit:"叩くふり→トン",crouch:"しのび寄る",think:"うーん、ポン",
+   point:"寝てる寝てる",drink:"酒飲むー",sleep:"寝る",yame:"やめーい",roll:"コロン",help:"助けてー",namlie:"仰向け南無南無",
+   kneelnam:"立ち膝で南無南無",grab:"脚を掴んで揺らす",heave:"よいしょよいしょ",beckon:"おいでおいで",pour:"お酒をあげる",
+   yohai:"よー、はい",yohai3:"はい、はい、はい"},
+ B:{walk:"歩く",walk4:"歩く",gurukachi:"顔グルん→カチカチ",guru:"顔グルん",kachi:"口カチカチ",crouch:"しゃがむ",jump:"ジャンプ",
+   back:"後ろへ",hop:"足かけてぴょんぴょん",kick:"足でチョン",kickfake:"けるふり→こつん",kickface:"顔を3回ける",roll:"ごろん",
+   ride:"上に乗る",ridekachi:"上で口カチカチ",sleep:"寝る",sneak:"近づく",poke:"頭でチョン",backstep:"細かく後ずさり",
+   sit:"座る",thrash:"バタバタ",tongue:"舌を出して上下",headtouch:"頭でトン",turnout:"外側を向く",fall:"前へ倒れる",
+   drink:"お酒",pyon:"ぴょん",pyon3:"ぴょん×3",oshichi:"おしち",oshichiwalk:"歩きおしち",lie:"ふせる",stomp:"足どんどん",down:"降りる"}
+};
+const ROLE={H:{n:"狩人",s:"狩",c:"#8fdc8f",d:"#1f3a22"},F:{n:"女熊",s:"♀",c:"#ff8fb1",d:"#4a1f2c"},M:{n:"男熊",s:"♂",c:"#7fb8ff",d:"#1c2c46"}};
+
+// ---- ポーズ → 人形の形 ----
+const sn=Math.sin, ab=Math.abs, mx=Math.max, mn=Math.min;
+const bnc=(u,per,h)=>-h*ab(sn(Math.PI*u/per));
+function walkLegs(u,f=7,a=14){ const s=sn(u*f); return {y:-ab(s)*3,ll:4+mx(0,s)*a,lk:-mx(0,s)*a*2,rl:4+mx(0,-s)*a,rk:-mx(0,-s)*a*2,la:14+s*8,ra:14-s*8}; }
+const NAMA={la:22,le:-128,ra:22,re:-128};
+const HP={
+ stand:u=>({}),
+ walk:u=>walkLegs(u),
+ run:u=>Object.assign(walkLegs(u,12,22),{la:40,le:-60,ra:40,re:-60}),
+ crouchwalk:u=>Object.assign(walkLegs(u,6,10),{y:12,ll:22,lk:-44,rl:22,rk:-44,la:70+sn(u*6)*30,le:-30,ra:70-sn(u*6)*30,re:-30}),
+ stretch:u=>({y:-8,la:168,ra:168,rot:sn(u*2)*3}),
+ stretchlook:u=>({y:-8,la:18,ra:150,re:-128,look:sn(u*2.2),ht:sn(u*2.2)*6}),
+ look:u=>({ra:150,re:-128,look:sn(u*2.6),ht:sn(u*2.6)*7}),
+ lookLR:u=>{const k=(u%3)<1.5?-1:1; return {look:k,ht:k*9};},
+ towel:u=>({y:-4,la:150+sn(u*3)*8,le:-35,ra:150-sn(u*3)*8,re:-35,prop:"towel"}),
+ ear:u=>({y:12,ll:22,lk:-44,rl:22,rk:-44,la:165,le:-150,ra:60+40*sn(u*4),re:-20,ht:-10}),
+ call:u=>({y:6,ll:14,lk:-28,rl:14,rk:-28,la:118,le:-112,ra:118,re:-112,bub:"おーい熊が出るぞ！"}),
+ flute:u=>Object.assign(walkLegs(u,5,10),{la:72,le:-100,ra:72,re:-100,prop:"flute",bub:"♪ ピー"}),
+ surprise:u=>({y:u<.6?bnc(u,.6,18):0,la:150,le:-20,ra:150,re:-20,bub:"！！"}),
+ nam:u=>Object.assign({y:sn(u*9)*1.5,ht:sn(u*4)*4,bub:"南無南無"},NAMA),
+ wave:u=>({la:120,le:-60+sn(u*12)*28,ra:120,re:-60-sn(u*12)*28,bub:"フリフリ"}),
+ hit:u=>{const ph=(u%1.1)/1.1; return {la:15,ra:ph<.5?60+ph*2*110:170-(ph-.5)*2*110,re:-10,bub:u>2.2?"トン！":"叩くふり"};},
+ crouch:u=>({y:18,ll:30,lk:-62,rl:30,rk:-62,la:35,le:-40,ra:35,re:-40}),
+ think:u=>u<2.5?{ra:40,re:-152,ht:10,bub:"うーん…"}:{la:58,le:-105,ra:58,re:-105,bub:"ポン！"},
+ point:u=>({ra:95,re:0,la:15,ht:-8*sn(u*2),bub:"寝てる寝てる"}),
+ drink:u=>({y:36,ll:78,lk:-118,rl:78,rk:-118,la:20,ra:22,re:-150+sn(u*3)*10,prop:"cup",bub:"酒飲むー"}),
+ sleep:u=>({rot:-90,y:28,la:10,ra:10,ll:4,rl:4,bub:"Zz"}),
+ yame:u=>({rot:-90,y:28,la:10,ra:90+40*sn(u*10),bub:"やめーい！"}),
+ roll:u=>({rot:-90-360*mn(u,1.2)/1.2,y:28,la:20,ra:20,bub:"ゴロン"}),
+ help:u=>({y:24,ll:50,lk:-100,rl:50,rk:-100,la:160,le:-50,ra:160,re:-50,rot:sn(u*14)*3,bub:"助けてー"}),
+ namlie:u=>({rot:-90,y:28,la:-90,ra:90,le:0,re:0,bub:"南無南無"}),
+ kneelnam:u=>Object.assign({y:20,ll:45,lk:-95,rl:10,rk:-10,ht:sn(u*4)*4,bub:"南無南無"},NAMA),
+ grab:u=>({y:14+sn(u*10)*4,la:40,le:-20,ra:40,re:-20,ll:20,lk:-40,rl:20,rk:-40,bub:"ゆさ、ゆさ"}),
+ heave:u=>Object.assign(walkLegs(u,6,10),{la:162,le:-25,ra:162,re:-25,prop:"box",bub:"よいしょ"}),
+ beckon:u=>({ra:90,re:-60-40*mx(0,sn(u*8)),la:15,bub:"おいでおいで"}),
+ pour:u=>({la:60,le:-80,ra:80,re:-60,prop:"bottle",bub:"お酒"}),
+ yohai:u=>u<.9?{la:165,ra:165,bub:"よー"}:u<1.8?{la:30,le:-112,ra:30,re:-112,bub:"はい！"}:{},
+ yohai3:u=>({ra:120+40*sn(u*7),la:15,bub:"はい！"}),
+};
+const BP={
+ stand:u=>({v:"f",jaw:.1+.05*sn(u*2)}),
+ stand4:u=>({v:"s"}),
+ walk:u=>({v:"f",rot:sn(u*6)*5,ll:mx(0,sn(u*6))*12,rl:mx(0,-sn(u*6))*12}),
+ walk4:u=>({v:"s",sw:sn(u*7)*22,y:-ab(sn(u*7))*3}),
+ gurukachi:u=>({v:"f",hr:u<1.2?u/1.2*360:0,jaw:u<1.2?.1:ab(sn(u*12))}),
+ guru:u=>({v:"f",hr:(u%1.6)<1.2?(u%1.6)/1.2*360:0}),
+ kachi:u=>({v:"f",jaw:ab(sn(u*12))}),
+ crouch:u=>({v:"f",sc:.72}),
+ jump:u=>({v:"f",y:bnc(u,.75,45),ll:10,rl:10}),
+ back:u=>({v:"f",rot:sn(u*5)*4,ll:mx(0,sn(u*5))*8,rl:mx(0,-sn(u*5))*8,arrow:"back"}),
+ hop:u=>({v:"f",y:bnc(u,.45,16),ll:26}),
+ kick:u=>({v:"f",rl:10+28*mx(0,sn(u*6))}),
+ kickfake:u=>({v:"f",rl:10+28*mx(0,sn(u*6))}),
+ kickface:u=>({v:"f",rl:50*mx(0,sn(u*5)),jaw:.4}),
+ roll:u=>({v:"s",rot:360*(u%1.2)/1.2,y:-20,tuck:1}),
+ ride:u=>({v:"f"}),
+ ridekachi:u=>({v:"f",jaw:ab(sn(u*12))}),
+ sleep:u=>({v:"s",tuck:1,y:30,sc:.62+.02*sn(u*2),bub:"Zz"}),
+ sneak:u=>({v:"s",sw:sn(u*3)*14,y:8,sc:.85}),
+ poke:u=>({v:"s",hd:18*mx(0,sn(u*5))}),
+ backstep:u=>({v:"s",sw:sn(u*12)*10,back:1}),
+ sit:u=>({v:"f",sc:.7,al:10,ar:10}),
+ thrash:u=>({v:"f",rot:sn(u*18)*14,al:60+40*sn(u*20),ar:60-40*sn(u*20),jaw:ab(sn(u*15))}),
+ tongue:u=>({v:"f",tongue:1,nod:sn(u*6)*8}),
+ headtouch:u=>({v:"s",hd:u<.6?u/.6*22:22}),
+ turnout:u=>({v:"s",out:1}),
+ fall:u=>({v:"f",rot:mn(1,u/.5)*80}),
+ drink:u=>({v:"f",nod:-8,jaw:.6,al:20,ar:70}),
+ pyon:u=>({v:"f",y:u<.7?bnc(u,.7,40):0}),
+ pyon3:u=>({v:"f",y:u<2.1?bnc(u,.7,40):0}),
+ oshichi:u=>({v:"f",sc:1+.45*mn(1,u/.6),al:60,ar:60,rot:sn(u*3)*3}),
+ oshichiwalk:u=>({v:"f",sc:1.45,al:60,ar:60,rot:sn(u*6)*4,ll:mx(0,sn(u*6))*10,rl:mx(0,-sn(u*6))*10}),
+ lie:u=>({v:"s",tuck:1,y:26,sc:.6}),
+ stomp:u=>({v:"f",ll:18*mx(0,sn(u*8)),rl:18*mx(0,-sn(u*8))}),
+ down:u=>({v:"f",sc:1.45-.45*mn(1,u/.5)}),
+};
+
+// ---- 人形を描く ----
+const f1=n=>(+n).toFixed(1);
+function dirv(a){ const r=a*Math.PI/180; return [-sn(r),Math.cos(r)]; }
+function seg(x,y,a,l){ const [dx,dy]=dirv(a); return [x+dx*l,y+dy*l]; }
+function fuzz(cx,cy,rx,ry,n,amp,seed){
+  const p=[]; for(let i=0;i<n;i++){ const a=i/n*2*Math.PI, r=1+(i%2?amp:-amp*.4)+((i*7+seed)%5)*.012;
+    p.push(f1(cx+Math.cos(a)*rx*r)+","+f1(cy+sn(a)*ry*r)); } return p.join(" ");
+}
+function drawHunter(q){
+  const p=Object.assign({y:0,rot:0,la:12,le:0,ra:12,re:0,ll:4,lk:0,rl:4,rk:0,ht:0,look:0},q);
+  const hipY=-44,neckY=-92; let s="";
+  for(const [hx,a,k,sg] of [[-7,p.ll,p.lk,1],[7,p.rl,p.rk,-1]]){
+    const [kx,ky]=seg(hx,hipY,sg*a,22),[fx,fy]=seg(kx,ky,sg*(a+k),22);
+    s+=`<polyline points="${hx},${hipY} ${f1(kx)},${f1(ky)} ${f1(fx)},${f1(fy)}" fill="none" stroke="#2b2f3a" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>`;
+    s+=`<circle cx="${f1(kx)}" cy="${f1(ky)}" r="4" fill="#e6e2d8"/>`;
+  }
+  s+=`<path d="M-16,${neckY} L16,${neckY} L20,${hipY+5} L-20,${hipY+5} Z" fill="#8fa3b8" stroke="#5d6f82" stroke-width="2"/>`;
+  s+=`<rect x="-20" y="${hipY-7}" width="40" height="7" fill="#3c4250"/>`;
+  const hands=[];
+  for(const [sx,a,e,sg] of [[-15,p.la,p.le,1],[15,p.ra,p.re,-1]]){
+    const sy=neckY+5,[ex,ey]=seg(sx,sy,sg*a,20),[hx,hy]=seg(ex,ey,sg*(a+e),19); hands.push([hx,hy]);
+    s+=`<polyline points="${sx},${sy} ${f1(ex)},${f1(ey)} ${f1(hx)},${f1(hy)}" fill="none" stroke="#a9b9ca" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>`;
+    s+=`<circle cx="${f1(hx)}" cy="${f1(hy)}" r="5" fill="#e9c9a7"/>`;
+  }
+  const hy=neckY-15, lk=(p.look||0)*6;
+  s+=`<g transform="rotate(${f1(p.ht)} 0 ${neckY})"><circle cx="0" cy="${hy}" r="15" fill="#ece8de" stroke="#b9b2a3" stroke-width="2"/>`+
+     `<ellipse cx="${f1(lk)}" cy="${hy+2}" rx="8" ry="7" fill="#e9c9a7"/>`+
+     `<circle cx="${f1(lk-3)}" cy="${hy+1}" r="1.7" fill="#222"/><circle cx="${f1(lk+3)}" cy="${hy+1}" r="1.7" fill="#222"/></g>`;
+  const [h1,h2]=hands;
+  if(p.prop==="towel") s+=`<line x1="${f1(h1[0])}" y1="${f1(h1[1])}" x2="${f1(h2[0])}" y2="${f1(h2[1])}" stroke="#fff" stroke-width="7"/>`;
+  if(p.prop==="flute") s+=`<line x1="-26" y1="${hy+8}" x2="26" y2="${hy+8}" stroke="#c8a165" stroke-width="4"/>`;
+  if(p.prop==="cup") s+=`<rect x="${f1(h2[0]-5)}" y="${f1(h2[1]-12)}" width="10" height="11" rx="2" fill="#c0392b"/>`;
+  if(p.prop==="box") s+=`<rect x="-24" y="${f1(mn(h1[1],h2[1])-26)}" width="48" height="26" rx="4" fill="#9b6a3c" stroke="#5b3a1c" stroke-width="2"/>`;
+  if(p.prop==="bottle") s+=`<rect x="${f1(h2[0]-6)}" y="${f1(h2[1]-22)}" width="12" height="22" rx="4" fill="#e8e1cf" stroke="#7a705c"/>`;
+  return {svg:`<g transform="translate(0,${f1(p.y)}) rotate(${f1(p.rot)} 0 ${hipY})">${s}</g>`,top:-125,bub:p.bub};
+}
+function bearHead(p){
+  const hy=-190, j=(p.jaw||0)*13;
+  let s=`<polygon points="${fuzz(0,hy,52,46,28,.12,3)}" fill="#0e0e0e"/>`;
+  s+=`<ellipse cx="0" cy="${hy-4}" rx="35" ry="30" fill="#4a2a1a" stroke="#7a4a26" stroke-width="2"/>`;
+  s+=`<path d="M-26,${hy-20} q13,-9 22,2 M26,${hy-20} q-13,-9 -22,2" stroke="#d8b25a" stroke-width="4" fill="none"/>`;
+  s+=`<circle cx="-13" cy="${hy-10}" r="6" fill="#f2c94c"/><circle cx="13" cy="${hy-10}" r="6" fill="#f2c94c"/>`;
+  s+=`<circle cx="-13" cy="${hy-10}" r="2.6" fill="#111"/><circle cx="13" cy="${hy-10}" r="2.6" fill="#111"/>`;
+  s+=`<path d="M-22,${hy+4} Q0,${hy-4} 22,${hy+4} L22,${hy+10} L-22,${hy+10} Z" fill="#b3261e"/>`;
+  s+=`<path d="M-18,${hy+10} l4,5 l4,-5 l4,5 l4,-5 l4,5 l4,-5 l4,5 l4,-5" fill="#fff"/>`;
+  s+=`<g transform="translate(0,${f1(j)})"><path d="M-22,${hy+14} L22,${hy+14} Q0,${hy+30} -22,${hy+14} Z" fill="#8c1d17"/>`;
+  if(p.tongue) s+=`<rect x="-7" y="${hy+14}" width="14" height="26" rx="7" fill="#ff5d6c"/>`;
+  s+=`</g>`;
+  return s;
+}
+function drawBear(q,accent){
+  const p=Object.assign({v:"f",y:0,rot:0,sc:1,hr:0,jaw:.1,al:28,ar:28,ll:0,rl:0,nod:0,sw:0,hd:0},q);
+  let s="";
+  if(p.v==="f"){
+    s+=`<rect x="-36" y="${f1(-34-p.ll)}" width="24" height="34" rx="9" fill="#141414"/><rect x="12" y="${f1(-34-p.rl)}" width="24" height="34" rx="9" fill="#141414"/>`;
+    s+=`<g transform="translate(0,-26) scale(1,${f1(p.sc)}) translate(0,26)">`;
+    s+=`<polygon points="${fuzz(0,-102,54,80,44,.08,1)}" fill="#171717" stroke="#3a3a3a" stroke-width="2"/>`;
+    for(const [sx,a,sg] of [[-46,p.al,1],[46,p.ar,-1]]){ const [hx,hy]=seg(sx,-138,sg*a,44);
+      s+=`<line x1="${sx}" y1="-138" x2="${f1(hx)}" y2="${f1(hy)}" stroke="#171717" stroke-width="22" stroke-linecap="round"/>`; }
+    s+=`<ellipse cx="0" cy="-150" rx="34" ry="7" fill="${accent}" opacity=".9"/>`;
+    s+=`<g transform="translate(0,${f1(p.nod)}) rotate(${f1(p.hr)} 0 -190)">${bearHead(p)}</g></g>`;
+    return {svg:`<g transform="translate(0,${f1(p.y)}) rotate(${f1(p.rot)} 0 -60)">${s}</g>`,top:-246*p.sc,bub:p.bub};
+  }
+  // 横向き（右向きで描いて、向きは外で反転）
+  if(!p.tuck) for(const [x,a] of [[-58,p.sw],[-32,-p.sw],[36,-p.sw],[62,p.sw]]){
+    const [fx,fy]=seg(x,-48,a,46); s+=`<line x1="${x}" y1="-48" x2="${f1(fx)}" y2="${f1(fy)}" stroke="#141414" stroke-width="20" stroke-linecap="round"/>`; }
+  s+=`<g transform="translate(0,${f1(p.y)}) scale(1,${f1(p.sc)})">`;
+  s+=`<polygon points="${fuzz(0,-80,94,46,40,.09,2)}" fill="#171717" stroke="#3a3a3a" stroke-width="2"/>`;
+  s+=`<ellipse cx="74" cy="-82" rx="8" ry="30" fill="${accent}" opacity=".9"/>`;
+  s+=`<g transform="rotate(${f1(p.hd)} 80 -84) translate(98,106) scale(.82)">${bearHead(p)}</g></g>`;
+  return {svg:`<g transform="rotate(${f1(p.rot)} 0 -70)">${s}</g>`,top:-150*p.sc,bub:p.bub,side:1};
+}
+
+// ---- 表示の状態 ----
+let ver="kuma", ori="zu", view="both";
+const focusOf=id=> ver==="kuma" ? (id!=="H") : (id==="H");
+const mapEl=document.getElementById("map"), figEl=document.getElementById("fig"), capEl=document.getElementById("cap");
+const OX=40,OY=52,SX=9.2,SY=8.8;
+function disp(x,y){ if(ori==="cam"){x=100-x;y=50-y;} return [OX+x*SX,OY+y*SY]; }
+
+function actorState(id,t){
+  const P=poseAt(id,t); if(P.p==="hide") return null;
+  const q=posAt(id,t); let p=P.p;
+  if(q.mv){ if(p==="stand") p=(id==="H"?"walk":"walk"); else if(p==="stand4") p="walk4"; }
+  const [X,Y]=disp(q.x,q.y);
+  let dX=q.dx*(ori==="cam"?-1:1);
+  if(q.mv && ab(dX)>0.3) ACT[id].face=dX>0?1:-1;
+  return {id,p,u:t-P.t0,x:q.x,y:q.y,X,Y,mv:q.mv};
+}
+
+function sceneSteps(s,t){ // 今やっている番号（ver で絞る）と次
+  const want=w=> w.includes("A") || (ver==="kuma" ? /[FMB]/.test(w) : w.includes("H"));
+  let curK=[],nextK=null,lastT=-1;
+  s.st.forEach((e,k)=>{ if(!want(e.w)) return; if(e.t<=t+0.05){ if(e.t>lastT+0.01){curK=[k];lastT=e.t;} else curK.push(k);} else if(nextK===null) nextK=k; });
+  return {curK,nextK};
+}
+function allCurSteps(s,t){ let r=[],lt=-1; s.st.forEach((e,k)=>{ if(e.t<=t+0.05){ if(e.t>lt+0.01){r=[k];lt=e.t;} else r.push(k);} }); return r; }
+
+function drawMap(t,A){
+  let s=`<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs>`;
+  s+=`<rect x="${OX}" y="${OY}" width="${100*SX}" height="${50*SY}" rx="14" fill="#2a251d" stroke="#5a5040" stroke-width="2"/>`;
+  s+=`<line x1="${OX+50*SX}" y1="${OY}" x2="${OX+50*SX}" y2="${OY+50*SY}" stroke="#4a4234" stroke-dasharray="6 8"/>`;
+  const front = ori==="zu" ? "top" : "bottom";
+  const ty = OY-14, by = OY+50*SY+30;
+  const drumsY = front==="top" ? OY+50*SY+12 : OY-12;
+  for(const dx of [300,500,700]) s+=`<circle cx="${dx}" cy="${drumsY}" r="9" fill="#7a5a3a" stroke="#c9a46a"/>`;
+  s+=`<text x="500" y="${front==="top"?ty:by}" fill="#e9a13b" font-size="20" text-anchor="middle" font-weight="bold">▲ 客席（前）${ori==="cam"?"＝カメラ側":""}</text>`;
+  s+=`<text x="150" y="${front==="top"?by:ty}" fill="#b9b2a3" font-size="18" text-anchor="middle">楽器隊（うしろ）</text>`;
+  const L = ori==="zu" ? "演者の左" : "演者の右", R = ori==="zu" ? "演者の右" : "演者の左";
+  s+=`<text x="${OX+12}" y="${OY+26}" fill="#8a8270" font-size="16">← ${L}</text><text x="${OX+100*SX-12}" y="${OY+26}" fill="#8a8270" font-size="16" text-anchor="end">${R} →</text>`;
+  // その場面の道すじ
+  if(cur>=0){ const sc=S[cur];
+    for(const id of ["H","F","M"]){
+      const pts=[]; const p0=posAt(id,sc.start); if(poseAt(id,sc.start+.5).p==="hide" && poseAt(id,sc.end-.5).p==="hide") continue;
+      pts.push(disp(p0.x,p0.y));
+      for(const k of ACT[id].pos) if(k.t>sc.start && k.t<=sc.end+.01) pts.push(disp(k.x,k.y));
+      const uniq=pts.filter((p,i)=>i===0||Math.hypot(p[0]-pts[i-1][0],p[1]-pts[i-1][1])>2);
+      if(uniq.length<2) continue;
+      const op=focusOf(id)?.55:.2;
+      s+=`<polyline points="${uniq.map(p=>p.map(f1).join(",")).join(" ")}" fill="none" stroke="${ROLE[id].c}" stroke-opacity="${op}" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#ar)" stroke-linejoin="round"/>`;
+    }
+  }
+  // 人
+  const order=A.slice().sort((a,b)=>(focusOf(a.id)?1:0)-(focusOf(b.id)?1:0));
+  const Mst=A.find(a=>a.id==="M");
+  for(const a of order){
+    const R0=ROLE[a.id], f=focusOf(a.id), op=f?1:.42;
+    let X=a.X,Y=a.Y,sc=1,rot=0,extra="";
+    const P=a.p, u=a.u;
+    if(["jump","pyon","pyon3","hop","surprise"].includes(P)) { const per=P==="hop"?.45:.7; if(!(P==="pyon"&&u>.7)&&!(P==="pyon3"&&u>2.1)&&!(P==="surprise"&&u>.6)) { Y+= -16*ab(sn(Math.PI*u/per)); sc=1.12; } }
+    if(P==="roll") rot=(u%1.2)/1.2*360;
+    if(["sleep","lie"].includes(P)) extra=`<text x="34" y="-26" fill="#cfd8ff" font-size="20">z z</text>`;
+    if(P==="oshichi"||P==="oshichiwalk") { sc=1.3; extra=`<text x="0" y="-44" fill="#fff" font-size="22" text-anchor="middle">⇧</text>`; }
+    if(P==="crouch"||P==="sit") sc=.85;
+    if(P==="thrash") X+=sn(u*30)*4;
+    if((P==="ride"||P==="ridekachi") && Mst){ X=Mst.X+10; Y=Mst.Y-22; sc=.85; }
+    const flat = ["sleep","lie","namlie","yame"].includes(P);
+    s+=`<g transform="translate(${f1(X)},${f1(Y)}) scale(${sc})" opacity="${op}">`;
+    if(f) s+=`<circle r="40" fill="none" stroke="${R0.c}" stroke-opacity=".35" stroke-width="6"/>`;
+    s+=`<g transform="rotate(${f1(rot)})"><ellipse rx="30" ry="${flat?19:30}" fill="${R0.d}" stroke="${R0.c}" stroke-width="4"/>`+
+       `<text y="10" fill="${R0.c}" font-size="28" text-anchor="middle" font-weight="bold">${R0.s}</text></g>${extra}</g>`;
+    const lb=(a.id==="H"?LBL.H:LBL.B)[P];
+    if(lb && !["walk","walk4"].includes(P) && f){
+      const w=lb.length*19+20;
+      const PY=(Y-58*sc<OY+24)?Y+64*sc:Y-58*sc;
+      s+=`<g transform="translate(${f1(X)},${f1(PY)})"><rect x="${-w/2}" y="-20" width="${w}" height="30" rx="8" fill="#000" fill-opacity=".75" stroke="${R0.c}"/>`+
+         `<text y="2" fill="#fff" font-size="19" text-anchor="middle">${esc(lb)}</text></g>`;
+    }
+  }
+  if(!A.length) s+=`<text x="500" y="280" fill="#8a8270" font-size="24" text-anchor="middle">${t<T("6:00")?"もうすぐ場面1。狩人が出てきます":"（だれも出ていません）"}</text>`;
+  mapEl.innerHTML=s;
+}
+
+function drawFig(t,A){
+  const G=292; let s=`<line x1="20" y1="${G}" x2="980" y2="${G}" stroke="#3a3730" stroke-width="3"/>`;
+  const list=A.filter(a=>!(a.id==="F"&&(a.p==="ride"||a.p==="ridekachi")));
+  const ride=A.find(a=>a.id==="F"&&(a.p==="ride"||a.p==="ridekachi"));
+  list.sort((a,b)=>a.X-b.X);
+  const n=list.length, slots=n===1?[500]:n===2?[310,690]:[190,500,810];
+  const slotOf={};
+  list.forEach((a,i)=>{ a.SX=slots[i]; slotOf[a.id]=slots[i]; });
+  if(ride){ ride.SX=slotOf.M||500; ride.ride=true; list.push(ride); }
+  for(const a of list){
+    const f=focusOf(a.id), R0=ROLE[a.id];
+    let k, d, off=0;
+    if(a.id==="H"){ k=f?1.6:.9; const p=(HP[a.p]||HP.stand)(a.u); d=drawHunter(p); }
+    else {
+      k=f?1.0:.6; const p=(BP[a.p]||BP.stand)(a.u); d=drawBear(p,R0.c);
+      if(a.ride){ k*=.8; off=-105; }
+    }
+    let face=1;
+    if(d.side){
+      face=ACT[a.id].face;
+      if(a.p==="turnout") face = a.SX<500?-1:1;
+      if(a.p==="headtouch"||a.p==="poke"){ const o=list.filter(b=>b!==a); if(o.length){ const tg=a.p==="poke"?(o.find(b=>b.id==="H")||o[0]):(o.find(b=>b.id!=="H")||o[0]); face=tg.SX>a.SX?1:-1; } }
+    }
+    const op=f?1:.45;
+    s+=`<g opacity="${op}" transform="translate(${a.SX},${G+off}) scale(${f1(face*k)},${f1(k)})">${d.svg}</g>`;
+    if(!a.ride) s+=`<text x="${a.SX}" y="${G-6+22}" fill="${R0.c}" font-size="18" text-anchor="middle" font-weight="bold" opacity="${op}">${R0.s} ${R0.n}</text>`;
+    if(d.bub && f){
+      const by=G+off+d.top*k-14, w=d.bub.length*20+22;
+      s+=`<g transform="translate(${a.SX},${f1(mx(26,by))})"><rect x="${-w/2}" y="-22" width="${w}" height="32" rx="12" fill="#fff"/>`+
+         `<text y="3" fill="#111" font-size="20" text-anchor="middle" font-weight="bold">${esc(d.bub)}</text></g>`;
+    }
+  }
+  figEl.innerHTML=s;
+}
+
+function drawCap(t){
+  if(cur<0){ capEl.innerHTML=`<span class="dim">${cur===-1?"6:00 から場面1。":"動き表のあと。"}</span>`; return; }
+  const sc=S[cur]; const {curK,nextK}=sceneSteps(sc,t);
+  const txt=k=>roles(sc.steps[k].replace(/^!/,""));
+  let h=`<b>場面${sc.n}</b>　`;
+  h+= curK.length ? curK.map(txt).join("　") : `<span class="dim">（${ver==="kuma"?"熊":"狩人"}の番号はまだ）</span>`;
+  if(nextK!==null){ const dt=sc.st[nextK].t-t; h+=`<br><span class="nx">つぎ → ${txt(nextK)} <span class="cd">あと${dt.toFixed(1)}秒</span></span>`; }
+  else if(S[cur+1]) h+=`<br><span class="nx">つぎ → 場面${S[cur+1].n}（${S[cur+1].t}）</span>`;
+  capEl.innerHTML=h;
+}
+
+// ---- 鳴り物 ------------------------------------------------------
+const NT={
+ normal:  {n:"通常",               c:"#6b665b", tip:"いつものリズム"},
+ aizu:    {n:"どんどんドンカッ",   c:"#f0a33a", tip:"合図",   rule:"「はじまるよ」の合図。場面1・4（せーの）・9・12。最後の「カッ」で次の動きが始まる。"},
+ renda:   {n:"ドンドンドン（連打）",c:"#ff5a5f", tip:"ため",   rule:"熊が大きく動く「ため」。ジャンプ・乗る・ぴょん・ごろん・おしち・忍び寄る女熊。"},
+ kime:    {n:"ドン！カッ！（決め）",c:"#ffe066", tip:"着地",   rule:"連打のおわり。降りた・着地した・転がり終わった瞬間に決めて、そのあと通常へ。"},
+ dokopiro:{n:"ドコドコ＆ピロピロ", c:"#b18cff", tip:"熊さわぎ",rule:"熊が出てくる時（場面3）、熊が叩かれて暴れる時、最後の祝い舞へ向かう間（場面23〜27）。"},
+ yukkuri: {n:"ゆっくり＆小さく",   c:"#59b0ff", tip:"おやすみ",rule:"だれかが寝る前（場面8の熊、場面13の狩人）。"},
+ stop:    {n:"ストップ（止める）", c:"#ffffff", tip:"はっ！",  rule:"狩人が「やめーい」「起き上がる」の瞬間に全部止める。"},
+ ashioto: {n:"ピロロ（足音）",     c:"#3fd69b", tip:"しのび足",rule:"場面14、女熊が狩人に忍び寄る足音に合わせる。太鼓は小さく→だんだん大きく。"},
+ unknown: {n:"動き表に書いていない",c:"#3a362e", tip:"？"},
+};
+const QTYPES=["aizu","renda","kime","dokopiro","yukkuri","stop","ashioto"];
+const CUES=[
+ ["6:00","6:03","aizu","場面1のはじまり（狩人が出る）"],
+ ["8:00","9:05","dokopiro","場面3 熊が出てくる間：どこどこどこ…＆ピロピロピロ"],
+ ["9:05","9:07","aizu","場面4「せーの」→ ドンカッから通常（笛・鐘はピロピロ…カッで通常）"],
+ ["9:11","9:14","kime","場面4 ③後ろに3歩 ← カッ・どん・どん・どん"],
+ ["10:18","10:23","renda","場面6 ⑤ジャンプしたら ドンドンドン"],
+ ["10:23","10:24.5","kime","場面6 外側へぐるり → カッ！ その後、通常"],
+ ["10:38","10:54.5","renda","場面7 熊が乗る前から ドンドンドン"],
+ ["10:54.5","10:56","kime","場面7 降りると同時に ドン！からのカッ"],
+ ["11:12","11:32","yukkuri","場面8 寝る前 ゆっくり＆小さく"],
+ ["11:32","11:35","aizu","場面9 どんどんドンカッから通常（狩人の出）"],
+ ["12:52","12:55","dokopiro","場面11 熊を叩いたら ドコドコ、ピロピロ"],
+ ["12:57","13:00","aizu","場面12 どんどんドンカッ → カッのあと狩人きょろきょろ"],
+ ["13:19","13:22","dokopiro","場面12 また叩いたら ドコピロ"],
+ ["13:23","13:25","kime","場面13 太鼓のカッ → 狩人きょろきょろ、そのあと通常"],
+ ["13:46","14:13","yukkuri","場面13 狩人が寝る前 ゆっくり＆小さく"],
+ ["14:13","14:31","ashioto","場面14 女熊が立ったら 足音に合わせて ピロロ ピロロ（太鼓は小さく→だんだん大きく）"],
+ ["14:31","14:36","renda","場面14 ③3回チョンで ドンドンドン"],
+ ["14:36","14:37","stop","場面14 ④狩人「やめーい」で止まる"],
+ ["14:37","14:46","renda","場面14 ⑤後ずさりで またドンドンドン",1],
+ ["14:46","15:01","unknown","動き表に書いていない"],
+ ["15:01","15:03","stop","場面15 狩人が起き上がったら 楽器ストップ"],
+ ["15:03","15:08","renda","場面15「うわー」で ドンドンドン",1],
+ ["15:08","15:34","unknown","動き表に書いていない（いつ通常にもどるか要確認）"],
+ ["15:34","15:36","renda","場面16 ③女熊が立って舌を出したら ドンドンドン"],
+ ["15:36","15:37","kime","場面16 カッ！から通常"],
+ ["17:49","17:54.5","renda","場面21 ②狩人「よーはい」のタイミングで どんどんどんどん…"],
+ ["17:54.5","17:56","kime","場面21 降りるタイミングで ドン！カッ！から通常"],
+ ["18:34","18:38","renda","場面23 ②男熊ぴょんから ドンドン…"],
+ ["18:38","19:10","dokopiro","場面23〜25 …からのドコドコピロピロ（ドコ＆ピロ）"],
+ ["19:10","19:12","renda","場面25 ③前へごろん ドンドンドン…"],
+ ["19:12","19:20","dokopiro","場面25〜26 ドコ＆ピロ"],
+ ["19:20","19:22","renda","場面26 ③前へごろん ドンドンドン…"],
+ ["19:22","19:30","dokopiro","場面26〜27 ドコ＆ピロ"],
+ ["19:30","19:33.5","renda","場面27 ②男熊おしち ドンドンドンドン…"],
+ ["19:33.5","19:34.5","kime","場面27 降りるタイミングで ドン、カッ → ④祝い舞へ"],
+ ["19:35","19:41","renda","場面28 スタンバって、狩人が動いたら ドンドンドン…"],
+ ["19:41","19:42","kime","場面28 着地に合わせて ドン！"],
+].map(([s,e,ty,why,g],i)=>({i,s:T(s),e:T(e),ty,why,g:!!g}));
+function cueAt(t){ if(t<T("6:00")||t>=AFTER) return null; return CUES.find(c=>t>=c.s&&t<c.e)||{ty:"normal",why:"",s:0,e:0,i:-1}; }
+function nextCue(t){ return CUES.find(c=>c.s>t && c.ty!=="unknown"); }
+const chip=ty=>`<span class="chip" style="background:${NT[ty].c}${ty==="unknown"?";color:#ddd":""}">${NT[ty].n}</span>`;
+
+// 場面バーの下の帯
+const lane=document.getElementById("lane"), head2=document.getElementById("head2");
+for(const c of CUES){
+  const d=document.createElement("div"); d.className="nb"; d.style.left=pct(c.s); d.style.width=`calc(${pct(c.e)} - ${pct(c.s)})`;
+  d.style.background= c.ty==="unknown" ? "repeating-linear-gradient(45deg,#3a362e 0 4px,#24221e 4px 8px)" : NT[c.ty].c;
+  d.title=`${fmt(c.s)} ${NT[c.ty].n}：${c.why}`; lane.insertBefore(d,head2);
+}
+lane.addEventListener("click",e=>{ const r=lane.getBoundingClientRect(); seek(T0+(e.clientX-r.left)/r.width*span); });
+
+const nariEls=[document.getElementById("nariV"),document.getElementById("nariA")];
+let lastTy=null;
+function drawNari(t){
+  const hide = Q.mode!==null;
+  const c=cueAt(t);
+  let h="";
+  if(c){
+    h=`鳴り物：<span class="now">${chip(c.ty)}</span>`;
+    if(c.ty!=="normal" && c.why) h+=` <span style="color:#d8d0bf;font-size:13px">${esc(c.why.replace(/^場面\d+[〜\d]* ?/,""))}</span>`;
+    const nx=nextCue(t);
+    if(nx && nx.s-t<=6){ h+=`<br><span class="soon">つぎ ${chip(nx.ty)} あと<b>${(nx.s-t).toFixed(1)}</b>秒　きっかけ：${esc(nx.why.replace(/^場面\d+[〜\d]* ?/,""))}</span>`; }
+    else if(c.ty!=="normal" && c.e-t<4 && !CUES.find(x=>x.s>=c.e-.01&&x.s<c.e+.5)) h+=`<br><span class="soon">このあと ${chip("normal")} にもどる</span>`;
+  }
+  const ty=c?c.ty:null;
+  for(const el of nariEls){
+    el.innerHTML=h; el.classList.toggle("hidden",hide||!c);
+    if(ty!==lastTy && lastTy!==null && ty && ty!=="normal"){ el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+  }
+  lastTy=ty;
+  head2.style.left=pct(t);
+  if(mode==="nari"){ document.querySelectorAll("table.cues tr[data-i]").forEach(r=>r.classList.toggle("cur",c&&+r.dataset.i===c.i)); }
+}
+
+// 鳴り物タブ
+window.renderNari=function(){
+  let h=`<div class="card"><h2>鳴り物の7つの型</h2>
+   <div class="note" style="margin-top:0">動き表の書き方から読みとった覚え方です。鳴り物は<b>動きをきっかけに</b>変わります。</div>
+   <div class="chain">いちばん大事な流れ：<span style="background:${NT.renda.c}">連打（ため）</span>→<span style="background:${NT.kime.c}">決め（着地）</span>→<span style="background:${NT.normal.c};color:#fff">通常</span></div>`;
+  for(const k of QTYPES) h+=`<div class="ncard"><div class="sw" style="background:${NT[k].c}"></div><div><b>${NT[k].n}</b>　<span style="color:var(--sub)">＝${NT[k].tip}</span><div class="when">${NT[k].rule}</div></div></div>`;
+  h+=`<div class="ncard"><div class="sw" style="background:${NT.normal.c}"></div><div><b>通常</b><div class="when">上のどれでもない間。</div></div></div></div>`;
+  h+=`<div class="card"><h2>練習する</h2>
+   <div class="note" style="margin-top:0">練習中は画面の「鳴り物」表示が消えます。動きを見て当ててください。</div>
+   <div class="qbtns"><button id="qA">❓ つぎは何？（この場面から）</button><button id="qA0">❓ つぎは何？（最初から）</button></div>
+   <div class="qbtns"><button id="qB">👆 タイミング（この場面から）</button><button id="qB0">👆 タイミング（最初から）</button></div>
+   <div class="note">❓ 変わる2秒前に動画が止まり、このあとどうなるかを選びます。<br>👆 変わったと思った瞬間に型のボタンを押します（キーボードは数字 1〜7）。</div>
+   <div class="score" id="score">${scoreHtml()}</div></div>`;
+  h+=`<div class="card"><h2>きっかけ一覧 <button onclick="window.print()">印刷</button></h2><table class="cues">`;
+  for(const c of CUES) h+=`<tr data-i="${c.i}" data-s="${c.s}"><td class="tt">${fmt(c.s)}</td><td>${chip(c.ty)}<br>${esc(c.why)}${c.g?"<br><span style='color:var(--sub);font-size:12px'>（終わりの時刻は目安）</span>":""}</td></tr>`;
+  h+=`</table><div class="note">時刻は動画を見て決めた目安（±1秒くらい）。15:01ごろまでと15:08〜15:34は動き表に書いていないので、先生・先輩に確かめてください。</div></div>`;
+  panel.innerHTML=h;
+  document.getElementById("qA").onclick=()=>startQ("quiz",false);
+  document.getElementById("qA0").onclick=()=>startQ("quiz",true);
+  document.getElementById("qB").onclick=()=>startQ("tap",false);
+  document.getElementById("qB0").onclick=()=>startQ("tap",true);
+  panel.querySelectorAll("table.cues tr").forEach(r=>r.onclick=()=>{ seek(+r.dataset.s-3); });
+};
+
+// ---- 練習（クイズ／タイミング） ----
+const Q={mode:null,from:0,done:new Set(),ok:0,ng:0,log:[],asking:null};
+const quizEl=document.getElementById("quiz"), tpad=document.getElementById("tpad");
+function scoreHtml(){
+  if(!Q.log.length && !Q.mode) return "まだ練習していません。";
+  const last=Q.log.slice(-6).reverse().map(x=>`<div>${x}</div>`).join("");
+  return `<b>${Q.mode==="quiz"?"❓ つぎは何？":Q.mode==="tap"?"👆 タイミング":"前回"}</b>　◎○ ${Q.ok}　× ${Q.ng}${last}`;
+}
+function updScore(){ const el=document.getElementById("score"); if(el) el.innerHTML=scoreHtml(); }
+function targets(){ return CUES.filter(c=>c.ty!=="unknown" && c.s>=Q.from-0.01); }
+function nearStep(c){
+  let best=null,bd=9;
+  for(const s of S) s.st.forEach((e,k)=>{ const d=ab(e.t-c.s); if(d<bd && e.t<=c.s+1.5){bd=d;best={s,k};} });
+  return best && bd<=3 ? `場面${best.s.n} ${roles(best.s.steps[best.k].replace(/^!/,""))}` : "";
+}
+function startQ(m,fromTop,idx){
+  Q.mode=m; Q.done=new Set(); Q.ok=0; Q.ng=0; Q.log=[]; Q.asking=null;
+  loop=false; stopEach=false; loopBtn.classList.remove("on"); stopBtn.classList.remove("on");
+  const i = idx!=null ? idx : (fromTop||cur<0 ? 0 : cur);
+  Q.from=S[i].start;
+  seek(S[i].start-2);
+  if(m==="tap") showPad("型のボタンを、変わった瞬間に押す！"); else tpad.classList.remove("show");
+  quizEl.classList.remove("show");
+  updScore(); v.play();
+}
+function stopQ(){
+  if(!Q.mode) return;
+  Q.log.push(`おわり：◎○ ${Q.ok}　× ${Q.ng}`);
+  Q.mode=null; Q.asking=null; quizEl.classList.remove("show"); tpad.classList.remove("show"); updScore();
+}
+function showPad(msg){
+  let h=`<div class="msg" id="tmsg">${msg}</div>`;
+  QTYPES.forEach((k,i)=>h+=`<button data-tap="${k}" style="border-bottom-color:${NT[k].c}">${i+1} ${NT[k].n}</button>`);
+  h+=`<button class="stopb" id="tstop">やめる</button>`;
+  tpad.innerHTML=h; tpad.classList.add("show");
+  tpad.querySelectorAll("[data-tap]").forEach(b=>b.onclick=()=>tap(b.dataset.tap));
+  document.getElementById("tstop").onclick=stopQ;
+}
+function tmsg(h){ const el=document.getElementById("tmsg"); if(el) el.innerHTML=h; }
+function tap(ty){
+  if(Q.mode!=="tap") return;
+  const t=v.currentTime+OFFSET;
+  let best=null,bd=9;
+  for(const c of targets()) if(!Q.done.has(c.i)){ const d=ab(t-c.s); if(d<bd){bd=d;best=c;} }
+  if(!best || bd>2){ tmsg(`${chip(ty)} … まだ変わらないよ（早すぎ？）`); return; }
+  Q.done.add(best.i);
+  const d=t-best.s, when=d<0?"早い":"おそい";
+  let r;
+  if(ty!==best.ty){ r=`× 型ちがい：正解は ${chip(best.ty)}`; Q.ng++; }
+  else if(ab(d)<=.6){ r=`◎ ぴったり！ ${chip(ty)}`; Q.ok++; }
+  else if(ab(d)<=1.3){ r=`○ おしい（${ab(d).toFixed(1)}秒${when}） ${chip(ty)}`; Q.ok++; }
+  else { r=`△ ${ab(d).toFixed(1)}秒${when} ${chip(ty)}`; Q.ng++; }
+  tmsg(r+`　<span style="font-size:14px;color:#ccc">${esc(best.why)}</span>`);
+  Q.log.push(`${fmt(best.s)} ${r}`); updScore();
+}
+function ask(c){
+  Q.asking=c; v.pause();
+  const nowC=cueAt(v.currentTime+OFFSET);
+  let h=`<h3>❓ このあと鳴り物はどうなる？</h3><div class="hint">いま：${nowC?chip(nowC.ty):""}<br>このとき起きる動き：${nearStep(c)||"（動画を見て）"}</div><div class="ch">`;
+  QTYPES.forEach((k,i)=>h+=`<button data-ans="${k}" style="border-left-color:${NT[k].c}">${i+1} ${NT[k].n}</button>`);
+  h+=`</div><div class="res" id="qres"></div><div class="qbtns" style="margin-top:10px"><button id="qgo" style="display:none">つづける ▶（スペース）</button><button id="qend">やめる</button></div>`;
+  quizEl.innerHTML=h; quizEl.classList.add("show");
+  quizEl.querySelectorAll("[data-ans]").forEach(b=>b.onclick=()=>answer(b.dataset.ans));
+  document.getElementById("qgo").onclick=resumeQ;
+  document.getElementById("qend").onclick=stopQ;
+}
+function answer(ty){
+  const c=Q.asking; if(!c || Q.done.has(c.i)) return;
+  Q.done.add(c.i);
+  const ok=ty===c.ty;
+  if(ok) Q.ok++; else Q.ng++;
+  document.getElementById("qres").innerHTML = (ok?`<span class="ok">◎ 正解！</span> `:`<span class="ng">× ざんねん</span> 正解は `)+chip(c.ty)+
+    `<br>${esc(c.why)}<br><span style="font-size:14px;color:var(--sub)">覚え方：${NT[c.ty].rule||""}</span>`;
+  quizEl.querySelectorAll("[data-ans]").forEach(b=>{ b.disabled=true; if(b.dataset.ans===c.ty) b.style.outline="3px solid #fff"; });
+  document.getElementById("qgo").style.display="";
+  Q.log.push(`${fmt(c.s)} ${ok?"◎":"×"} ${NT[c.ty].n}`); updScore();
+}
+function resumeQ(){ Q.asking=null; quizEl.classList.remove("show"); v.play(); }
+function checkQ(t){
+  if(Q.mode==="quiz" && !Q.asking && !v.paused){
+    const c=targets().find(c=>!Q.done.has(c.i) && c.s-t<=2 && c.s-t>-0.3);
+    if(c) ask(c);
+  }
+  if(Q.mode==="tap"){
+    for(const c of targets()) if(!Q.done.has(c.i) && t-c.s>2){ Q.done.add(c.i); Q.ng++; const r=`… 見のがし：${chip(c.ty)}`; tmsg(r+`　<span style="font-size:14px;color:#ccc">${esc(c.why)}</span>`); Q.log.push(`${fmt(c.s)} ${r}`); updScore(); }
+  }
+  if(Q.mode && t>=AFTER-0.2){ stopQ(); }
+}
+document.addEventListener("keydown",e=>{
+  if(Q.mode==="tap" && /^[1-7]$/.test(e.key)){ e.preventDefault(); e.stopImmediatePropagation(); tap(QTYPES[+e.key-1]); return; }
+  if(Q.mode==="quiz" && Q.asking){
+    if(/^[1-7]$/.test(e.key)){ e.preventDefault(); e.stopImmediatePropagation(); answer(QTYPES[+e.key-1]); return; }
+    if(e.key===" "||e.key==="Enter"){ e.preventDefault(); e.stopImmediatePropagation(); if(Q.done.has(Q.asking.i)) resumeQ(); return; }
+  }
+  if(e.key==="Escape" && Q.mode){ stopQ(); }
+},true);
+
+// ---- 切りかえボタン ----
+const viewsEl=document.getElementById("views");
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{ view=b.dataset.view; viewsEl.className="views v-"+view;
+  document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("on",x===b)); force=true; });
+document.querySelectorAll("[data-ver]").forEach(b=>b.onclick=()=>{ ver=b.dataset.ver;
+  document.querySelectorAll("[data-ver]").forEach(x=>x.classList.toggle("on",x===b)); force=true; });
+document.querySelectorAll("[data-ori]").forEach(b=>b.onclick=()=>{ ori=b.dataset.ori;
+  document.querySelectorAll("[data-ori]").forEach(x=>x.classList.toggle("on",x===b)); force=true; });
+// URLで最初の表示を選べる（例 ?ver=kari&view=anim&ori=cam&tab=nari）
+{ const P=new URLSearchParams(location.search);
+  const pick=(attr,val)=>{ const b=document.querySelector(`[data-${attr}="${val}"]`); if(b) b.click(); };
+  if(P.get("view")) pick("view",P.get("view")); else viewsEl.className="views v-both";
+  if(P.get("ver")) pick("ver",P.get("ver"));
+  if(P.get("ori")) pick("ori",P.get("ori"));
+  if(P.get("tab")==="nari") setTab("nari"); else if(P.get("tab")==="all") setTab("all");
+  if(P.get("t")) v.addEventListener("loadedmetadata",()=>seek(T(P.get("t"))),{once:true}); // ?t=10:45 でその時刻から
+  const st=P.get("start"); // ?start=quiz / ?start=tap で、開いたらすぐ練習（#場面番号 と組み合わせ可）
+  if(st==="quiz"||st==="tap") v.addEventListener("loadedmetadata",()=>setTimeout(()=>{ const h=parseInt(location.hash.slice(1),10); startQ(st,false,(h>=1&&h<=S.length)?h-1:null); },300),{once:true});
+}
+
+// ---- 毎フレーム ----
+let lastT=-1, force=true, lastCur=null;
+function frame(){
+  const t=v.currentTime+OFFSET;
+  if(t!==lastT || force || cur!==lastCur){
+    lastT=t; force=false; lastCur=cur;
+    if(view!=="video"){
+      const A=["H","F","M"].map(id=>actorState(id,t)).filter(Boolean);
+      drawMap(t,A); drawFig(t,A); drawCap(t);
+    }
+    drawNari(t);
+    // 右の「いまの場面」で今の番号に枠
+    if(cur>=0){ const ks=allCurSteps(S[cur],t); document.querySelectorAll(`#c${cur+1} li[data-i]`).forEach(li=>li.classList.toggle("now",ks.includes(+li.dataset.i))); }
+    checkQ(t);
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+</script>
+<!-- /ANIM -->
 </body>
 </html>
