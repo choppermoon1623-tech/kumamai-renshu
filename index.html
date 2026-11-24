@@ -95,14 +95,15 @@ kbd{background:#34312b;border:1px solid #4a463d;border-radius:4px;padding:0 5px;
 .views.v-both .anim,.views.v-anim .anim{display:flex}
 .views.v-anim .vwrap{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 .anim svg{width:100%;display:block;min-height:0}
-#map{flex:1.7 1 0}
-#fig{flex:1 1 0;background:linear-gradient(#2a251e,#5a4a36);border-radius:6px}
+#map{flex:1.3 1 0}
+#fig{flex:1 1 0;background:#1e1812;border-radius:6px}
 .cap{font-size:17px;line-height:1.5;padding:4px 8px 2px;min-height:3.2em}
 .cap .who{display:inline-block;min-width:3.6em;font-weight:bold}
 .cap .nx{color:var(--sub);font-size:14px}
 .cap .cd{color:var(--accent);font-variant-numeric:tabular-nums}
 .cap .dim{color:#77715f}
 .views.v-anim .cap{font-size:21px}
+.views.v-anim #fig{flex:1.5 1 0}
 
 /* 鳴り物 */
 .lane{position:relative;height:16px;margin-top:4px;background:#2a2722;border-radius:4px;overflow:hidden;cursor:pointer}
@@ -148,6 +149,57 @@ table.cues tr:hover{background:#2f2c26}
 table.cues tr.cur{background:rgba(233,161,59,.18)}
 table.cues .tt{font-variant-numeric:tabular-nums;color:var(--sub);white-space:nowrap}
 .steps li.now{outline:2px solid #fff;outline-offset:-2px}
+
+/* 鳴り物の譜面と、切りかわりの大きな文字 */
+.views{position:relative}
+.scorebox{margin-top:6px}
+.svgwrap{position:relative}
+#nscore{width:100%;display:block;border-radius:0 0 8px 8px;max-height:150px}
+.nowline{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:#100e0b;border-radius:8px 8px 0 0;
+  padding:5px 10px;font-size:16px;line-height:1.4;min-height:34px;border-bottom:1px solid #2a2722}
+.nowline .tag{display:inline-block;background:#fff;color:#111;font-weight:bold;border-radius:5px;padding:0 7px;margin-right:6px;font-size:14px}
+.nowline .tag.q{background:var(--accent)}
+.nowline .cd{font-size:20px;font-variant-numeric:tabular-nums;color:#fff;margin:0 2px}
+.nowline .nl-next.soon{animation:soon .6s ease-in-out infinite alternate;border-radius:6px;padding:0 6px}
+@keyframes soon{from{background:transparent}to{background:rgba(255,255,255,.13)}}
+.nowline .nl-dim{color:var(--sub)}
+.scorehelp{font-size:12.5px;color:var(--sub);padding:3px 4px 0;line-height:1.5}
+.scorehelp i{font-style:normal;padding:0 5px;border-radius:4px;color:#111;font-weight:bold}
+button.mini{font-size:12.5px;padding:1px 8px}
+button.big{font-size:17px;padding:8px 14px;background:var(--accent);color:#111;font-weight:bold;border-color:var(--accent)}
+.scorehelp{position:relative}
+.tourtip{position:absolute;left:150px;right:0;top:1px;bottom:-2px;background:#fff8e1;color:#111;font-size:clamp(14px,1.4vw,18px);font-weight:bold;border-radius:8px;
+  padding:4px 12px;display:none;z-index:6;align-items:center}
+.tourtip.show{display:flex;animation:tin .3s ease-out}
+.tourtip .tg{background:var(--accent);border-radius:5px;padding:0 6px;margin-right:8px;font-size:13px;white-space:nowrap}
+@keyframes tin{from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}
+.nlwrap{position:relative}
+.nowline{min-height:44px;display:grid;grid-template-columns:1fr 1fr}
+.nowline .nl-next{text-align:right}
+.burst{position:absolute;left:0;top:0;bottom:0;width:50%;display:flex;align-items:center;justify-content:flex-start;padding-left:10px;gap:14px;background:#100e0b;border-radius:8px 8px 0 0;
+  pointer-events:none;z-index:5;opacity:0;white-space:nowrap;overflow:hidden}
+.burst .bb{font-size:clamp(20px,2.3vw,32px);font-weight:900;-webkit-text-stroke:2px #111;paint-order:stroke fill;text-shadow:2px 2px 0 #111;letter-spacing:.04em;line-height:1}
+.burst .bs{font-size:13px;font-weight:bold;color:#fff;display:flex;flex-direction:column;align-items:flex-start;gap:2px;line-height:1.2;white-space:nowrap}
+.burst .bs span{color:#111;padding:0 8px;border-radius:5px}
+.burst.show{animation:bpop 1.9s ease-out forwards}
+.burst.show.b-renda .bb{animation:bshake .09s linear 12}
+.burst.show.b-dokopiro .bb,.burst.show.b-ashioto .bb{animation:bwave .5s ease-in-out 3}
+.burst.show.b-kime .bb{animation:bslam .35s cubic-bezier(.2,1.6,.4,1)}
+.nari{display:none!important}
+.quizzing .music,.quizzing table.cues,.quizzing .hayami{filter:blur(7px);pointer-events:none;user-select:none}
+.hayami{display:grid;grid-template-columns:1fr;gap:10px}
+.hayami .hh{color:#111;font-weight:bold;border-radius:6px;padding:3px 8px;font-size:14px}
+.hayami ul{list-style:none;margin:4px 0 0;padding:0;font-size:14px;line-height:1.5}
+.hayami li{cursor:pointer;padding:2px 4px;border-radius:4px}
+.hayami li:hover{background:#34312b}
+.hayami .tt{color:var(--sub);font-variant-numeric:tabular-nums}
+.hayami .tg2{display:inline-block;min-width:3.6em;text-align:center;background:#3a362e;border-radius:4px;font-size:12px;margin-right:5px;padding:0 4px}
+.hayami .nt{color:var(--sub);font-size:12.5px;margin-left:4.3em}
+.ncard .inst{font-size:13px;color:#cfc6b2;margin-top:2px}
+@keyframes bpop{0%{opacity:0}8%{opacity:1}80%{opacity:1}100%{opacity:0}}
+@keyframes bshake{0%{transform:translate(0,0)}25%{transform:translate(-5px,2px)}50%{transform:translate(4px,-2px)}75%{transform:translate(-3px,-1px)}100%{transform:translate(0,0)}}
+@keyframes bwave{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-6px) rotate(-2deg)}75%{transform:translateY(6px) rotate(2deg)}}
+@keyframes bslam{0%{transform:scale(1.9)}100%{transform:scale(1)}}
 
 /* 印刷（一覧表示を紙に） */
 @media print{
@@ -203,6 +255,12 @@ table.cues .tt{font-variant-numeric:tabular-nums;color:var(--sub);white-space:no
       <div class="cap" id="cap"></div>
       <div class="nari" id="nariA"></div>
     </div>
+    </div>
+    <div class="scorebox">
+      <div class="nlwrap"><div class="nowline" id="nowline"></div><div class="burst" id="burst"></div></div>
+      <svg id="nscore" viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="scorehelp"><button id="tourB2" class="mini">👀 見方：太鼓</button><button id="tourB3" class="mini">👀 笛・鐘</button> <span id="helpTx">色の帯が右から流れてきて、白い「いま」の線に来た瞬間に鳴り方が変わります。
+        <i style="background:#ff5a5f">赤</i>太鼓の連打　<i style="background:#b18cff">紫</i>ドコドコ＆笛のトリル（ピロピロ）　<i style="background:#ffe066">★黄</i>決め　<i style="background:#f0a33a">橙</i>合図　<i style="background:#59b0ff">青</i>ゆっくり　<i style="background:#3fd69b">緑</i>足音　<i style="background:#fff">白</i>止める　点線＝笛の指定なし（打点の間隔・🐾は目安）</span><div class="tourtip" id="tourtip"></div></div>
     </div>
     <div class="quiz" id="quiz"></div>
     <div class="tpad" id="tpad"></div>
@@ -622,8 +680,15 @@ function posAt(id,t){
   const P=ACT[id].pos;
   if(t<=P[0].t) return {x:P[0].x,y:P[0].y,dx:0,dy:0,mv:false};
   for(let i=1;i<P.length;i++) if(t<P[i].t){
-    const a=P[i-1],b=P[i],k=(t-a.t)/(b.t-a.t),dx=b.x-a.x,dy=b.y-a.y;
-    return {x:a.x+dx*k,y:a.y+dy*k,dx,dy,mv:Math.hypot(dx,dy)>0.5};
+    const a=P[i-1],b=P[i],dx=b.x-a.x,dy=b.y-a.y,mv=Math.hypot(dx,dy)>0.5;
+    if(!mv) return {x:a.x,y:a.y,dx:0,dy:0,mv:false};
+    let k=(t-a.t)/(b.t-a.t);
+    // 前後も動いていれば曲線でつなぐ（カクカクしない）。止まる所・動き出す所はなめらかに速さを変える
+    const near=(p,q,dt)=>p && Math.hypot(p.x-q.x,p.y-q.y)>.5 && dt<6;
+    const p0=near(P[i-2],a,a.t-(P[i-2]||a).t)?P[i-2]:null, p3=near(P[i+1],b,(P[i+1]||b).t-b.t)?P[i+1]:null;
+    if(!p0&&!p3) k=k*k*(3-2*k)*.55+k*.45; else if(!p0) k=k+.45*(k*k-k); else if(!p3) k=k+.45*((1-(1-k)*(1-k))-k);
+    const A=p0||a, D=p3||b, cr=(q,w,e,r)=>{const k2=k*k,k3=k2*k; return .5*((2*w)+(-q+e)*k+(2*q-5*w+4*e-r)*k2+(-q+3*w-3*e+r)*k3);};
+    return {x:mn(100,mx(0,cr(A.x,a.x,b.x,D.x))),y:mn(50,mx(0,cr(A.y,a.y,b.y,D.y))),dx,dy,mv};
   }
   const L=P[P.length-1]; return {x:L.x,y:L.y,dx:0,dy:0,mv:false};
 }
@@ -697,7 +762,7 @@ const BP={
  guru:u=>({v:"f",hr:(u%1.6)<1.2?(u%1.6)/1.2*360:0}),
  kachi:u=>({v:"f",jaw:ab(sn(u*12))}),
  crouch:u=>({v:"f",sc:.72}),
- jump:u=>({v:"f",y:bnc(u,.75,45),ll:10,rl:10}),
+ jump:u=>({v:"f",y:u<3?bnc(u,1,45):0,ll:10,rl:10}),
  back:u=>({v:"f",rot:sn(u*5)*4,ll:mx(0,sn(u*5))*8,rl:mx(0,-sn(u*5))*8,arrow:"back"}),
  hop:u=>({v:"f",y:bnc(u,.45,16),ll:26}),
  kick:u=>({v:"f",rl:10+28*mx(0,sn(u*6))}),
@@ -707,7 +772,7 @@ const BP={
  ride:u=>({v:"f"}),
  ridekachi:u=>({v:"f",jaw:ab(sn(u*12))}),
  sleep:u=>({v:"s",tuck:1,y:30,sc:.62+.02*sn(u*2),bub:"Zz"}),
- sneak:u=>({v:"s",sw:sn(u*3)*14,y:8,sc:.85}),
+ sneak:u=>({v:"s",sw:sn(u*Math.PI)*16,y:8-ab(sn(u*Math.PI))*3,sc:.85}),
  poke:u=>({v:"s",hd:18*mx(0,sn(u*5))}),
  backstep:u=>({v:"s",sw:sn(u*12)*10,back:1}),
  sit:u=>({v:"f",sc:.7,al:10,ar:10}),
@@ -813,7 +878,7 @@ function actorState(id,t){
   const [X,Y]=disp(q.x,q.y);
   let dX=q.dx*(ori==="cam"?-1:1);
   if(q.mv && ab(dX)>0.3) ACT[id].face=dX>0?1:-1;
-  return {id,p,u:t-P.t0,x:q.x,y:q.y,X,Y,mv:q.mv};
+  return {id,p,u:t-P.t0,x:q.x,y:q.y,X,Y,mv:q.mv,prev:poseAt(id,P.t0-.01).p};
 }
 
 function sceneSteps(s,t){ // 今やっている番号（ver で絞る）と次
@@ -824,14 +889,31 @@ function sceneSteps(s,t){ // 今やっている番号（ver で絞る）と次
 }
 function allCurSteps(s,t){ let r=[],lt=-1; s.st.forEach((e,k)=>{ if(e.t<=t+0.05){ if(e.t>lt+0.01){r=[k];lt=e.t;} else r.push(k);} }); return r; }
 
+// その人がいまやっている①②…（番号と、始まってからの秒数）
+function stepOf(id,t){
+  if(cur<0) return null; const sc=S[cur]; let r=null;
+  sc.st.forEach((e,k)=>{ const w=e.w; const mine=w.includes("A")||w.includes(id)||(w.includes("B")&&id!=="H");
+    if(mine && e.t<=t+.05) r={k,age:t-e.t,txt:sc.steps[k].replace(/^!/,"")}; });
+  return r;
+}
+const NUMS="①②③④⑤⑥⑦⑧⑨";
+const easeOut=x=>1-Math.pow(1-mn(1,mx(0,x)),3);
+
 function drawMap(t,A){
-  let s=`<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs>`;
-  s+=`<rect x="${OX}" y="${OY}" width="${100*SX}" height="${50*SY}" rx="14" fill="#2a251d" stroke="#5a5040" stroke-width="2"/>`;
-  s+=`<line x1="${OX+50*SX}" y1="${OY}" x2="${OX+50*SX}" y2="${OY+50*SY}" stroke="#4a4234" stroke-dasharray="6 8"/>`;
+  let s=`<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+   <pattern id="wood" width="46" height="1000" patternUnits="userSpaceOnUse"><rect width="46" height="1000" fill="#2d271e"/><rect width="2" height="1000" fill="#3a3227"/><rect x="23" y="0" width="1" height="1000" fill="#332c22"/></pattern>
+   <radialGradient id="spot"><stop offset="0" stop-color="#fff6d8" stop-opacity=".30"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></radialGradient></defs>`;
+  s+=`<rect x="${OX}" y="${OY}" width="${100*SX}" height="${50*SY}" rx="14" fill="url(#wood)" stroke="#6a5c46" stroke-width="2"/>`;
+  s+=`<line x1="${OX+50*SX}" y1="${OY}" x2="${OX+50*SX}" y2="${OY+50*SY}" stroke="#55493a" stroke-dasharray="6 8"/>`;
   const front = ori==="zu" ? "top" : "bottom";
   const ty = OY-14, by = OY+50*SY+30;
-  const drumsY = front==="top" ? OY+50*SY+12 : OY-12;
-  for(const dx of [300,500,700]) s+=`<circle cx="${dx}" cy="${drumsY}" r="9" fill="#7a5a3a" stroke="#c9a46a"/>`;
+  const drumsY = front==="top" ? OY+50*SY+14 : OY-14;
+  // 楽器隊（太鼓が鳴ると光る）
+  const g=segAt(t), hi=hitInfo(g,t), imp=hi&&!hi.stop?Math.exp(-hi.hp*14)*hi.amp:0;
+  for(const dx of [300,500,700]){
+    s+=`<circle cx="${dx}" cy="${drumsY}" r="${f1(10+imp*5)}" fill="#7a5a3a" stroke="${imp>.3&&g?NT[g.ty].c:"#c9a46a"}" stroke-width="${f1(2+imp*3)}"/>`;
+    if(imp>.25) s+=`<circle cx="${dx}" cy="${drumsY}" r="${f1(14+(1-imp)*16)}" fill="none" stroke="${g?NT[g.ty].c:"#fff"}" stroke-opacity="${f1(imp*.8)}" stroke-width="2"/>`;
+  }
   s+=`<text x="500" y="${front==="top"?ty:by}" fill="#e9a13b" font-size="20" text-anchor="middle" font-weight="bold">▲ 客席（前）${ori==="cam"?"＝カメラ側":""}</text>`;
   s+=`<text x="150" y="${front==="top"?by:ty}" fill="#b9b2a3" font-size="18" text-anchor="middle">楽器隊（うしろ）</text>`;
   const L = ori==="zu" ? "演者の左" : "演者の右", R = ori==="zu" ? "演者の右" : "演者の左";
@@ -839,15 +921,25 @@ function drawMap(t,A){
   // その場面の道すじ
   if(cur>=0){ const sc=S[cur];
     for(const id of ["H","F","M"]){
-      const pts=[]; const p0=posAt(id,sc.start); if(poseAt(id,sc.start+.5).p==="hide" && poseAt(id,sc.end-.5).p==="hide") continue;
-      pts.push(disp(p0.x,p0.y));
-      for(const k of ACT[id].pos) if(k.t>sc.start && k.t<=sc.end+.01) pts.push(disp(k.x,k.y));
+      const pts=[]; if(poseAt(id,sc.start+.5).p==="hide" && poseAt(id,sc.end-.5).p==="hide") continue;
+      for(let tt=sc.start; tt<=sc.end+.01; tt+=.25){ const q=posAt(id,tt); pts.push(disp(q.x,q.y)); }
       const uniq=pts.filter((p,i)=>i===0||Math.hypot(p[0]-pts[i-1][0],p[1]-pts[i-1][1])>2);
       if(uniq.length<2) continue;
       const op=focusOf(id)?.55:.2;
-      s+=`<polyline points="${uniq.map(p=>p.map(f1).join(",")).join(" ")}" fill="none" stroke="${ROLE[id].c}" stroke-opacity="${op}" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#ar)" stroke-linejoin="round"/>`;
+      s+=`<polyline points="${uniq.map(p=>p.map(f1).join(",")).join(" ")}" fill="none" stroke="${ROLE[id].c}" stroke-opacity="${op}" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#ar)" stroke-linejoin="round" stroke-linecap="round"/>`;
     }
   }
+  // 見ている人にスポットライト
+  for(const a of A) if(focusOf(a.id)) s+=`<circle cx="${f1(a.X)}" cy="${f1(a.Y)}" r="78" fill="url(#spot)"/>`;
+  // 動いている人の残像
+  for(const a of A) if(a.mv){
+    for(let k=6;k>=1;k--){ const tt=t-k*.12; if(poseAt(a.id,tt).p==="hide") continue; const q=posAt(a.id,tt), [X,Y]=disp(q.x,q.y);
+      s+=`<circle cx="${f1(X)}" cy="${f1(Y)}" r="${f1(24-k*2)}" fill="${ROLE[a.id].c}" opacity="${f1((focusOf(a.id)?.22:.1)*(1-k/7))}"/>`; }
+  }
+  // 女熊の忍び足：一歩ごとの足あと（ピロロと同じ時刻）
+  const Fa=A.find(a=>a.id==="F");
+  if(Fa && Fa.p==="sneak") for(let k=0;k<6;k++){ const tt=SNEAK0+Math.floor(t-SNEAK0)-k; if(tt<SNEAK0||tt>t) continue; const q=posAt("F",tt), [X,Y]=disp(q.x,q.y), age=t-tt;
+    s+=`<text x="${f1(X+(k%2?8:-8))}" y="${f1(Y+6)}" font-size="18" text-anchor="middle" opacity="${f1(mx(0,.9-age*.15))}">🐾</text>`; if(age<.5) s+=`<text x="${f1(X)}" y="${f1(Y-44)}" font-size="20" fill="#3fd69b" font-weight="bold" text-anchor="middle">ピロロ</text>`; }
   // 人
   const order=A.slice().sort((a,b)=>(focusOf(a.id)?1:0)-(focusOf(b.id)?1:0));
   const Mst=A.find(a=>a.id==="M");
@@ -855,18 +947,28 @@ function drawMap(t,A){
     const R0=ROLE[a.id], f=focusOf(a.id), op=f?1:.42;
     let X=a.X,Y=a.Y,sc=1,rot=0,extra="";
     const P=a.p, u=a.u;
-    if(["jump","pyon","pyon3","hop","surprise"].includes(P)) { const per=P==="hop"?.45:.7; if(!(P==="pyon"&&u>.7)&&!(P==="pyon3"&&u>2.1)&&!(P==="surprise"&&u>.6)) { Y+= -16*ab(sn(Math.PI*u/per)); sc=1.12; } }
+    let air=0;
+    if(["jump","pyon","pyon3","hop","surprise"].includes(P)) { const per=P==="hop"?.45:P==="jump"?1:.7; if(!(P==="pyon"&&u>.7)&&!(P==="pyon3"&&u>2.1)&&!(P==="surprise"&&u>.6)&&!(P==="jump"&&u>3)) { air=ab(sn(Math.PI*u/per)); Y+= -16*air; sc=1+.14*air; } }
     if(P==="roll") rot=(u%1.2)/1.2*360;
-    if(["sleep","lie"].includes(P)) extra=`<text x="34" y="-26" fill="#cfd8ff" font-size="20">z z</text>`;
+    if(["sleep","lie"].includes(P)) extra=`<text x="30" y="${f1(-24-(u*8%14))}" fill="#cfd8ff" font-size="20" opacity="${f1(.4+.6*ab(sn(u*1.5)))}">z</text><text x="44" y="${f1(-36-(u*8%14))}" fill="#cfd8ff" font-size="15">z</text>`;
     if(P==="oshichi"||P==="oshichiwalk") { sc=1.3; extra=`<text x="0" y="-44" fill="#fff" font-size="22" text-anchor="middle">⇧</text>`; }
     if(P==="crouch"||P==="sit") sc=.85;
     if(P==="thrash") X+=sn(u*30)*4;
-    if((P==="ride"||P==="ridekachi") && Mst){ X=Mst.X+10; Y=Mst.Y-22; sc=.85; }
+    if((P==="ride"||P==="ridekachi") && Mst){ const e=P==="ride"?easeOut(mn(1,u/.6)):1; X=a.X+(Mst.X+10-a.X)*e; Y=a.Y+(Mst.Y-22-a.Y)*e-18*sn(Math.PI*e); sc=1-.15*e; }
+    if(P==="down" && a.prev==="ridekachi" && Mst && u<.5){ const e=1-easeOut(u/.5); X=a.X+(Mst.X+10-a.X)*e; Y=a.Y+(Mst.Y-22-a.Y)*e-14*sn(Math.PI*e); }
     const flat = ["sleep","lie","namlie","yame"].includes(P);
-    s+=`<g transform="translate(${f1(X)},${f1(Y)}) scale(${sc})" opacity="${op}">`;
+    s+=`<ellipse cx="${f1(a.X)}" cy="${f1(a.Y+22)}" rx="${f1(26*(1-air*.35))}" ry="7" fill="#000" opacity="${f1(.35*op)}"/>`;
+    s+=`<g transform="translate(${f1(X)},${f1(Y)}) scale(${f1(sc)})" opacity="${op}">`;
     if(f) s+=`<circle r="40" fill="none" stroke="${R0.c}" stroke-opacity=".35" stroke-width="6"/>`;
     s+=`<g transform="rotate(${f1(rot)})"><ellipse rx="30" ry="${flat?19:30}" fill="${R0.d}" stroke="${R0.c}" stroke-width="4"/>`+
        `<text y="10" fill="${R0.c}" font-size="28" text-anchor="middle" font-weight="bold">${R0.s}</text></g>${extra}</g>`;
+    // ①②… の番号（始まった瞬間にポンと大きく出る）
+    const st=f?stepOf(a.id,t):null;
+    if(st && !(a.id==="F"&&(P==="ride"||P==="ridekachi"))){
+      const num=NUMS.includes(st.txt[0])?st.txt[0]:String(st.k+1), pop=st.age<.5?1+.9*(1-easeOut(st.age/.5)):1;
+      s+=`<g transform="translate(${f1(X-34*sc)},${f1(Y-32*sc)}) scale(${f1(pop)})"><circle r="15" fill="${R0.c}" stroke="#111" stroke-width="2"/><text y="7" font-size="20" text-anchor="middle" font-weight="bold" fill="#111">${num}</text></g>`;
+      if(st.age<.7) s+=`<circle cx="${f1(X)}" cy="${f1(Y)}" r="${f1(40+st.age*70)}" fill="none" stroke="${R0.c}" stroke-width="4" opacity="${f1(1-st.age/.7)}"/>`;
+    }
     const lb=(a.id==="H"?LBL.H:LBL.B)[P];
     if(lb && !["walk","walk4"].includes(P) && f){
       const w=lb.length*19+20;
@@ -879,22 +981,53 @@ function drawMap(t,A){
   mapEl.innerHTML=s;
 }
 
+// 熊の動きにつける「マンガの文字」
+const BFX={jump:"ジャンプ！",pyon:"ぴょん！",pyon3:"ぴょん ぴょん ぴょん！",roll:"ごろん！",ride:"よいしょ、乗る！",ridekachi:"カチカチ",gurukachi:"グルん→カチカチ",
+  kachi:"カチカチ",guru:"グルん",fall:"バタン！",thrash:"バタバタ！",oshichi:"おしち！",down:"ドン！",stomp:"どん どん",kickface:"ゲシゲシ",kick:"チョン",
+  kickfake:"けるふり→こつん",poke:"チョン",headtouch:"トン",tongue:"べー",hop:"ぴょんぴょん",backstep:"ササササ",sneak:"そろ〜り",oshichiwalk:"おしちで歩く"};
+const JUMPY=["jump","pyon","pyon3","hop"];
+
 function drawFig(t,A){
-  const G=292; let s=`<line x1="20" y1="${G}" x2="980" y2="${G}" stroke="#3a3730" stroke-width="3"/>`;
-  const list=A.filter(a=>!(a.id==="F"&&(a.p==="ride"||a.p==="ridekachi")));
-  const ride=A.find(a=>a.id==="F"&&(a.p==="ride"||a.p==="ridekachi"));
-  list.sort((a,b)=>a.X-b.X);
-  const n=list.length, slots=n===1?[500]:n===2?[310,690]:[190,500,810];
-  const slotOf={};
-  list.forEach((a,i)=>{ a.SX=slots[i]; slotOf[a.id]=slots[i]; });
-  if(ride){ ride.SX=slotOf.M||500; ride.ride=true; list.push(ride); }
+  const G=292;
+  // 横長の枠でも絵が小さくならないよう、枠に合わせて横を広げる
+  const cw=figEl.clientWidth||1000, ch=figEl.clientHeight||310, VW=mx(1000,mn(2400,310*cw/ch)), X0=500-VW/2;
+  figEl.setAttribute("viewBox",`${f1(X0)} 0 ${f1(VW)} 310`);
+  let s=`<defs><linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e1812"/><stop offset="1" stop-color="#3a2d20"/></linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a5d3a"/><stop offset="1" stop-color="#a7834f"/></linearGradient>
+    <radialGradient id="spot2" cx=".5" cy=".85" r=".6"><stop offset="0" stop-color="#fff3c4" stop-opacity=".32"/><stop offset="1" stop-color="#fff3c4" stop-opacity="0"/></radialGradient></defs>`;
+  // 体育館：うしろの壁と赤い幕、木の床
+  s+=`<rect x="${f1(X0)}" width="${f1(VW)}" height="${G-36}" fill="url(#wall)"/>`;
+  s+=`<rect x="${f1(X0)}" width="${f1(VW)}" height="28" fill="#5c1515"/>`;
+  for(let x=Math.floor(X0/34)*34;x<X0+VW;x+=34) s+=`<path d="M${x},0 q17,34 34,0" fill="#7a1d1d" opacity=".8"/>`;
+  s+=`<rect x="${f1(X0)}" y="${G-36}" width="${f1(VW)}" height="${310-G+36}" fill="url(#floor)"/>`;
+  for(let i=-24;i<=24;i++) s+=`<line x1="${500+i*48}" y1="${G-36}" x2="${500+i*95}" y2="310" stroke="#5e4529" stroke-width="1.5" opacity=".55"/>`;
+  s+=`<line x1="${f1(X0)}" y1="${G-36}" x2="${f1(X0+VW)}" y2="${G-36}" stroke="#2a2016" stroke-width="3"/>`;
+  // 横の位置は上の図の位置どおり。並ぶ二人の間には少しだけ「すき間」を足して重ならないようにする
+  // （すき間を足すだけなので、近づく・離れる＝内・外の差はそのまま見える）
+  // 女熊が男熊に乗る間は、すき間を0にして男熊の上へ（男熊は動かない）
+  const mapX=X=>X0+90+(X-OX)/(100*SX)*(VW-180), slotOf={}, EXT=200;
+  const list=A.slice();
+  for(const a of list){ a.mx=mapX(a.X); a.w=1; a.rideE=0;
+    if(a.id==="F"&&(a.p==="ride"||a.p==="ridekachi")){ a.ride=true; a.rideE=a.p==="ride"&&a.u<.6?easeOut(a.u/.6):1; a.w=1-a.rideE; }
+    if(a.id==="F"&&a.p==="down"&&a.prev==="ridekachi"&&a.u<.5){ a.ride=true; a.rideE=1-easeOut(a.u/.5); a.w=1-a.rideE; a.dn=true; } }
+  list.sort((p,q)=>p.mx-q.mx);
+  const k0=mx(0,list.findIndex(a=>a.id==="M"));   // 男熊（いなければ左はし）をその場に固定して、左右へすき間を足す
+  if(list.length){ list[k0].SX=list[k0].mx;
+    for(let i=k0+1;i<list.length;i++) list[i].SX=list[i-1].SX+(list[i].mx-list[i-1].mx)+EXT*mn(list[i].w,list[i-1].w);
+    for(let i=k0-1;i>=0;i--) list[i].SX=list[i+1].SX-(list[i+1].mx-list[i].mx)-EXT*mn(list[i].w,list[i+1].w);
+    const lo=X0+90, hi=X0+VW-90, f0=list[0].SX, fz=list[list.length-1].SX; const sh2=f0<lo?lo-f0:fz>hi?hi-fz:0; list.forEach(a=>a.SX+=sh2); }
+  list.forEach(a=>slotOf[a.id]=a.SX);
+  list.sort((p,q)=>(p.ride?1:0)-(q.ride?1:0));   // 乗っている女熊はあとから描く（上に重なる）
+  // スポットライト
+  for(const a of list) if(focusOf(a.id)&&!a.ride) s+=`<ellipse cx="${a.SX}" cy="${G-60}" rx="190" ry="200" fill="url(#spot2)"/>`;
+  let words="";
   for(const a of list){
     const f=focusOf(a.id), R0=ROLE[a.id];
-    let k, d, off=0;
-    if(a.id==="H"){ k=f?1.6:.9; const p=(HP[a.p]||HP.stand)(a.u); d=drawHunter(p); }
+    let k, d, off=0, p;
+    if(a.id==="H"){ k=f?1.6:.9; p=(HP[a.p]||HP.stand)(a.u); d=drawHunter(p); }
     else {
-      k=f?1.0:.6; const p=(BP[a.p]||BP.stand)(a.u); d=drawBear(p,R0.c);
-      if(a.ride){ k*=.8; off=-105; }
+      k=f?1.0:.6; p=(BP[a.p]||BP.stand)(a.u); d=drawBear(p,R0.c);
+      if(a.ride){ const e=a.rideE; k*=1-.2*e; off=-105*e-(a.dn?40:60)*sn(Math.PI*e); }
     }
     let face=1;
     if(d.side){
@@ -903,12 +1036,38 @@ function drawFig(t,A){
       if(a.p==="headtouch"||a.p==="poke"){ const o=list.filter(b=>b!==a); if(o.length){ const tg=a.p==="poke"?(o.find(b=>b.id==="H")||o[0]):(o.find(b=>b.id!=="H")||o[0]); face=tg.SX>a.SX?1:-1; } }
     }
     const op=f?1:.45;
+    // 影（とぶと小さくなる）と、着地の土ぼこり
+    const lift=mn(1,mx(0,-(p.y||0)/60));
+    if(!a.ride||a.rideE<.5) s+=`<ellipse cx="${a.SX}" cy="${G+3}" rx="${f1(62*k*(1-lift*.45))}" ry="${f1(9*k*(1-lift*.3))}" fill="#000" opacity="${f1((.42-lift*.2)*op)}"/>`;
+    if(JUMPY.includes(a.p) && a.u>.3 && ab(p.y||0)<4 && f){
+      for(const sg of [-1,1]) s+=`<ellipse cx="${f1(a.SX+sg*(50+10*k))}" cy="${G-4}" rx="${f1(16*k)}" ry="${f1(7*k)}" fill="#d9c4a0" opacity=".6"/>`;
+    }
     s+=`<g opacity="${op}" transform="translate(${a.SX},${G+off}) scale(${f1(face*k)},${f1(k)})">${d.svg}</g>`;
-    if(!a.ride) s+=`<text x="${a.SX}" y="${G-6+22}" fill="${R0.c}" font-size="18" text-anchor="middle" font-weight="bold" opacity="${op}">${R0.s} ${R0.n}</text>`;
+    if(!a.ride||a.rideE<.5) s+=`<text x="${a.SX}" y="${G-6+22}" fill="${R0.c}" font-size="18" text-anchor="middle" font-weight="bold" opacity="${op}" stroke="#000" stroke-width="3" paint-order="stroke">${R0.s} ${R0.n}</text>`;
     if(d.bub && f){
       const by=G+off+d.top*k-14, w=d.bub.length*20+22;
       s+=`<g transform="translate(${a.SX},${f1(mx(26,by))})"><rect x="${-w/2}" y="-22" width="${w}" height="32" rx="12" fill="#fff"/>`+
-         `<text y="3" fill="#111" font-size="20" text-anchor="middle" font-weight="bold">${esc(d.bub)}</text></g>`;
+         `<path d="M-8,10 L0,22 L8,10 Z" fill="#fff"/><text y="3" fill="#111" font-size="20" text-anchor="middle" font-weight="bold">${esc(d.bub)}</text></g>`;
+    }
+    if(a.id==="F" && a.p==="sneak" && stepOn(t) && f) words+=`<text x="${f1(a.SX)}" y="${G-8}" font-size="24" font-weight="900" fill="#3fd69b" stroke="#111" stroke-width="5" paint-order="stroke" text-anchor="middle">🐾 ピロロ</text>`;
+    // 熊の動きの文字（はじめの1.5秒、ポンと出てゆれる）
+    let fx=a.id!=="H"&&f?BFX[a.p]:null, lim=1.6;
+    if(fx && a.p==="jump"){ const n=Math.floor(a.u); if(n<3){ fx=`ジャンプ ${"１２３"[n]}`; lim=3; } else fx=null; }
+    if(fx && a.u<lim){
+      const uu=a.p==="jump"?a.u%1:a.u, pop=uu<.25?.4+2.4*uu:1+.06*sn(a.u*14), oo=a.u>lim-.4?1-(a.u-lim+.4)/.4:1, wy=G+off+d.top*k-30;
+      const wx=mn(X0+VW-fx.length*14-10,mx(X0+fx.length*14+10,a.SX+(a.SX<500?-70:70)));
+      words+=`<g transform="translate(${f1(wx)},${f1(mx(40,wy))}) rotate(-6) scale(${f1(pop)})" opacity="${f1(oo)}"><text text-anchor="middle" font-size="30" font-weight="900" fill="#fff" stroke="${R0.c}" stroke-width="7" paint-order="stroke" stroke-linejoin="round">${esc(fx)}</text></g>`;
+    }
+  }
+  s+=words;
+  // 場面が変わったら、上に大きく「場面○」
+  if(cur>=0){ const sc=S[cur], age=t-sc.start;
+    if(age>=0 && age<2.6){
+      const oo=age<.25?age/.25:age>2.1?1-(age-2.1)/.5:1, yy=age<.25?-30+30*easeOut(age/.25):0;
+      const sub=sc.call?`「${sc.call}」`:sc.steps[0].replace(/^!/,"");
+      s+=`<g opacity="${f1(oo)}" transform="translate(500,${f1(46+yy)})"><rect x="-300" y="-34" width="600" height="62" rx="14" fill="#111" fill-opacity=".86" stroke="#e9a13b" stroke-width="3"/>`+
+         `<text x="-280" y="10" font-size="34" font-weight="900" fill="#e9a13b">場面${sc.n}</text>`+
+         `<text x="-150" y="8" font-size="22" fill="#fff">${esc(sub.length>17?sub.slice(0,17)+"…":sub)}</text></g>`;
     }
   }
   figEl.innerHTML=s;
@@ -928,9 +1087,9 @@ function drawCap(t){
 // ---- 鳴り物 ------------------------------------------------------
 const NT={
  normal:  {n:"通常",               c:"#6b665b", tip:"いつものリズム"},
- aizu:    {n:"どんどんドンカッ",   c:"#f0a33a", tip:"合図",   rule:"「はじまるよ」の合図。場面1・4（せーの）・9・12。最後の「カッ」で次の動きが始まる。"},
+ aizu:    {n:"合図（どんどんドンカッ）",c:"#f0a33a", tip:"はじまり",   rule:"「はじまるよ」の合図。場面1・4（せーの）・9・12。最後の「カッ」で次の動きが始まる。"},
  renda:   {n:"ドンドンドン（連打）",c:"#ff5a5f", tip:"ため",   rule:"熊が大きく動く「ため」。ジャンプ・乗る・ぴょん・ごろん・おしち・忍び寄る女熊。"},
- kime:    {n:"ドン！カッ！（決め）",c:"#ffe066", tip:"着地",   rule:"連打のおわり。降りた・着地した・転がり終わった瞬間に決めて、そのあと通常へ。"},
+ kime:    {n:"決め（着地）",       c:"#ffe066", tip:"ドン！カッ！など",   rule:"連打のおわり。降りた・着地した・転がり終わった瞬間に決めて、そのあと通常へ。"},
  dokopiro:{n:"ドコドコ＆ピロピロ", c:"#b18cff", tip:"熊さわぎ",rule:"熊が出てくる時（場面3）、熊が叩かれて暴れる時、最後の祝い舞へ向かう間（場面23〜27）。"},
  yukkuri: {n:"ゆっくり＆小さく",   c:"#59b0ff", tip:"おやすみ",rule:"だれかが寝る前（場面8の熊、場面13の狩人）。"},
  stop:    {n:"ストップ（止める）", c:"#ffffff", tip:"はっ！",  rule:"狩人が「やめーい」「起き上がる」の瞬間に全部止める。"},
@@ -938,48 +1097,222 @@ const NT={
  unknown: {n:"動き表に書いていない",c:"#3a362e", tip:"？"},
 };
 const QTYPES=["aizu","renda","kime","dokopiro","yukkuri","stop","ashioto"];
+// [始まり, 終わり, 型, 動き表の言葉, 終わりが目安なら1, きっかけ（短く）, 笛・鐘が特別なら]
 const CUES=[
- ["6:00","6:03","aizu","場面1のはじまり（狩人が出る）"],
- ["8:00","9:05","dokopiro","場面3 熊が出てくる間：どこどこどこ…＆ピロピロピロ"],
- ["9:05","9:07","aizu","場面4「せーの」→ ドンカッから通常（笛・鐘はピロピロ…カッで通常）"],
- ["9:11","9:14","kime","場面4 ③後ろに3歩 ← カッ・どん・どん・どん"],
- ["10:18","10:23","renda","場面6 ⑤ジャンプしたら ドンドンドン"],
- ["10:23","10:24.5","kime","場面6 外側へぐるり → カッ！ その後、通常"],
- ["10:38","10:54.5","renda","場面7 熊が乗る前から ドンドンドン"],
- ["10:54.5","10:56","kime","場面7 降りると同時に ドン！からのカッ"],
- ["11:12","11:32","yukkuri","場面8 寝る前 ゆっくり＆小さく"],
- ["11:32","11:35","aizu","場面9 どんどんドンカッから通常（狩人の出）"],
- ["12:52","12:55","dokopiro","場面11 熊を叩いたら ドコドコ、ピロピロ"],
- ["12:57","13:00","aizu","場面12 どんどんドンカッ → カッのあと狩人きょろきょろ"],
- ["13:19","13:22","dokopiro","場面12 また叩いたら ドコピロ"],
- ["13:23","13:25","kime","場面13 太鼓のカッ → 狩人きょろきょろ、そのあと通常"],
- ["13:46","14:13","yukkuri","場面13 狩人が寝る前 ゆっくり＆小さく"],
- ["14:13","14:31","ashioto","場面14 女熊が立ったら 足音に合わせて ピロロ ピロロ（太鼓は小さく→だんだん大きく）"],
- ["14:31","14:36","renda","場面14 ③3回チョンで ドンドンドン"],
- ["14:36","14:37","stop","場面14 ④狩人「やめーい」で止まる"],
- ["14:37","14:46","renda","場面14 ⑤後ずさりで またドンドンドン",1],
- ["14:46","15:01","unknown","動き表に書いていない"],
- ["15:01","15:03","stop","場面15 狩人が起き上がったら 楽器ストップ"],
- ["15:03","15:08","renda","場面15「うわー」で ドンドンドン",1],
- ["15:08","15:34","unknown","動き表に書いていない（いつ通常にもどるか要確認）"],
- ["15:34","15:36","renda","場面16 ③女熊が立って舌を出したら ドンドンドン"],
- ["15:36","15:37","kime","場面16 カッ！から通常"],
- ["17:49","17:54.5","renda","場面21 ②狩人「よーはい」のタイミングで どんどんどんどん…"],
- ["17:54.5","17:56","kime","場面21 降りるタイミングで ドン！カッ！から通常"],
- ["18:34","18:38","renda","場面23 ②男熊ぴょんから ドンドン…"],
- ["18:38","19:10","dokopiro","場面23〜25 …からのドコドコピロピロ（ドコ＆ピロ）"],
- ["19:10","19:12","renda","場面25 ③前へごろん ドンドンドン…"],
- ["19:12","19:20","dokopiro","場面25〜26 ドコ＆ピロ"],
- ["19:20","19:22","renda","場面26 ③前へごろん ドンドンドン…"],
- ["19:22","19:30","dokopiro","場面26〜27 ドコ＆ピロ"],
- ["19:30","19:33.5","renda","場面27 ②男熊おしち ドンドンドンドン…"],
- ["19:33.5","19:34.5","kime","場面27 降りるタイミングで ドン、カッ → ④祝い舞へ"],
- ["19:35","19:41","renda","場面28 スタンバって、狩人が動いたら ドンドンドン…"],
- ["19:41","19:42","kime","場面28 着地に合わせて ドン！"],
-].map(([s,e,ty,why,g],i)=>({i,s:T(s),e:T(e),ty,why,g:!!g}));
+ ["6:00","6:03","aizu","場面1のはじまり（狩人が出る）",0,"狩人が出る",0,"どん どん ドン カッ"],
+ ["8:00","9:05","dokopiro","場面3 熊が出てくる間：どこどこどこ…＆ピロピロピロ",0,"熊が出る直前"],
+ ["9:05","9:07","aizu","場面4「せーの」→ ドンカッから通常（笛・鐘はピロピロ…カッで通常）",0,"せーの","trill","どん どん ドン カッ"],
+ ["9:11","9:14","kime","場面4 ③後ろに3歩 ← カッ・どん・どん・どん",0,"後ろへ3歩",0,"カッ どん どん どん"],
+ ["10:18","10:23","renda","場面6 ⑤ジャンプしたら ドンドンドン",0,"ジャンプ"],
+ ["10:23","10:24.5","kime","場面6 外側へぐるり → カッ！ その後、通常",0,"外へごろん",0,"カッ！"],
+ ["10:38","10:54.5","renda","場面7 熊が乗る前から ドンドンドン",0,"乗る前から"],
+ ["10:54.5","10:56","kime","場面7 降りると同時に ドン！からのカッ",0,"降りる",0,"ドン！ カッ"],
+ ["11:12","11:32","yukkuri","場面8 寝る前 ゆっくり＆小さく",0,"熊が寝る前"],
+ ["11:32","11:35","aizu","場面9 どんどんドンカッから通常（狩人の出）",0,"狩人の出",0,"どん どん ドン カッ"],
+ ["12:52","12:55","dokopiro","場面11 熊を叩いたら ドコドコ、ピロピロ",0,"熊を叩く"],
+ ["12:57","13:00","aizu","場面12 どんどんドンカッ → カッのあと狩人きょろきょろ",0,"きょろきょろ前",0,"どん どん ドン カッ"],
+ ["13:19","13:22","dokopiro","場面12 また叩いたら ドコピロ",0,"また叩く"],
+ ["13:23","13:25","kime","場面13 太鼓のカッ → 狩人きょろきょろ、そのあと通常",0,"太鼓のカッ",0,"カッ"],
+ ["13:46","14:13","yukkuri","場面13 狩人が寝る前 ゆっくり＆小さく",0,"狩人が寝る前"],
+ ["14:13","14:31","ashioto","場面14 女熊が立ったら 足音に合わせて ピロロ ピロロ（太鼓は小さく→だんだん大きく）",0,"女熊が立つ"],
+ ["14:31","14:36","renda","場面14 ③3回チョンで ドンドンドン",0,"3回チョン"],
+ ["14:36","14:37","stop","場面14 ④狩人「やめーい」で止まる",0,"やめーい"],
+ ["14:37","14:46","renda","場面14 ⑤後ずさりで またドンドンドン",1,"後ずさり"],
+ ["14:46","15:01","unknown","動き表に書いていない",0,""],
+ ["15:01","15:03","stop","場面15 狩人が起き上がったら 楽器ストップ",0,"起き上がる"],
+ ["15:03","15:08","renda","場面15「うわー」で ドンドンドン",1,"うわー"],
+ ["15:08","15:34","unknown","動き表に書いていない（いつ通常にもどるか要確認）",0,""],
+ ["15:34","15:36","renda","場面16 ③女熊が立って舌を出したら ドンドンドン",0,"舌を出す"],
+ ["15:36","15:37","kime","場面16 カッ！から通常",0,"カッ！",0,"カッ！"],
+ ["17:49","17:54.5","renda","場面21 ②狩人「よーはい」のタイミングで どんどんどんどん…",0,"よー、はい"],
+ ["17:54.5","17:56","kime","場面21 降りるタイミングで ドン！カッ！から通常",0,"降りる",0,"ドン！ カッ！"],
+ ["18:34","18:38","renda","場面23 ②男熊ぴょんから ドンドン…",0,"男熊ぴょん"],
+ ["18:38","19:10","dokopiro","場面23〜25 …からのドコドコピロピロ（ドコ＆ピロ）",0,"外へごろん"],
+ ["19:10","19:12","renda","場面25 ③前へごろん ドンドンドン…",0,"前へごろん"],
+ ["19:12","19:20","dokopiro","場面25〜26 ドコ＆ピロ",0,"女熊が移動"],
+ ["19:20","19:22","renda","場面26 ③前へごろん ドンドンドン…",0,"前へごろん"],
+ ["19:22","19:30","dokopiro","場面26〜27 ドコ＆ピロ",0,"ごろんのあと"],
+ ["19:30","19:33.5","renda","場面27 ②男熊おしち ドンドンドンドン…",0,"男熊おしち"],
+ ["19:33.5","19:34.5","kime","場面27 降りるタイミングで ドン、カッ → ④祝い舞へ",0,"降りる",0,"ドン カッ"],
+ ["19:35","19:41","renda","場面28 スタンバって、狩人が動いたら ドンドンドン…",0,"狩人が動く"],
+ ["19:41","19:42","kime","場面28 着地に合わせて ドン！",0,"着地",0,"ドン！"],
+].map(([s,e,ty,why,g,k,fl,h],i)=>({i,s:T(s),e:T(e),ty,why,g:!!g,k:k||"",fl:fl||null,h:h?h.split(" "):null}));
 function cueAt(t){ if(t<T("6:00")||t>=AFTER) return null; return CUES.find(c=>t>=c.s&&t<c.e)||{ty:"normal",why:"",s:0,e:0,i:-1}; }
 function nextCue(t){ return CUES.find(c=>c.s>t && c.ty!=="unknown"); }
 const chip=ty=>`<span class="chip" style="background:${NT[ty].c}${ty==="unknown"?";color:#ddd":""}">${NT[ty].n}</span>`;
+
+// ---- 楽器ごとの鳴り方（太鼓の段・笛と鐘の段） ----------------------
+// 笛・鐘の段は、動き表に笛・鐘・ピロのことが書いてある所だけ色をつける。書いていない所は点線（指定なし）。
+const DR={normal:"beat",aizu:"aizu",renda:"renda",kime:"kime",dokopiro:"doko",yukkuri:"slow",stop:"stop",ashioto:"cresc",unknown:"unk"};
+const FLm={normal:"mel",aizu:"nos",renda:"nos",kime:"nos",dokopiro:"trill",yukkuri:"slow",stop:"stop",ashioto:"piro",unknown:"unk"};
+const DRN={beat:"トン トン（いつもの）",aizu:"どん どん ドン カッ",renda:"ドンドンドン（連打）",kime:"ドン！カッ！（決め）",doko:"ドコドコ（連打）",slow:"ゆっくり小さく",stop:"止める",cresc:"小さく→だんだん大きく",unk:"？ 書いていない"};
+const FLN={mel:"いつもの",nos:"（指定なし）",trill:"ピロピロ（トリル）",slow:"ゆっくり小さく",stop:"止める",piro:"ピロロ ピロロ（足音）",unk:"？ 書いていない"};
+const FLC={trill:"#b18cff",piro:"#3fd69b",slow:"#59b0ff",stop:"#ffffff"};
+const SEGS=[];
+{ let p=T("6:00");
+  for(const c of CUES){ if(c.s>p+.01) SEGS.push({s:p,e:c.s,ty:"normal",c:null}); SEGS.push({s:c.s,e:c.e,ty:c.ty,c}); p=c.e; }
+  if(AFTER>p) SEGS.push({s:p,e:AFTER,ty:"normal",c:null});
+  SEGS.forEach(g=>{ g.dr=DR[g.ty]; g.fl=(g.c&&g.c.fl)||FLm[g.ty]; });
+}
+const SNEAK0=T("14:15"), SNEAK1=T("14:30");
+const stepOn=tt=> tt>=SNEAK0 && tt<SNEAK1 && ((tt-SNEAK0)%1)<.5;   // 一歩ふみ出して0.5秒、ピロロ
+function segAt(t){ return SEGS.find(g=>t>=g.s&&t<g.e)||null; }
+const CHG=SEGS.filter((g,i)=>i>0 && (SEGS[i-1].dr!==g.dr || SEGS[i-1].fl!==g.fl));
+CHG.unshift(SEGS[0]);
+
+// 合図・決めの1打ずつの時刻（動き表の打音の数で区間を割る。決めは0.45秒おき）
+function hitTimes(g){ const w=(g.c&&g.c.h)||["ドン"], L=g.e-g.s, n=w.length;
+  if(g.dr==="aizu" && n>1) return w.map((_,i)=>i<n-1? g.s+i*(L-.08)/(n-1) : g.e-.08);   // 合図は最後の「カッ」で次へ
+  const d=(g.dr==="kime"&&n<=2)?mn(.45,L/n):L/n; return w.map((_,i)=>g.s+i*d); }
+// 太鼓：さっき叩いてからの秒数(hp)と強さ
+function hitInfo(g,t){
+  if(!g) return null;
+  const u=t-g.s, L=g.e-g.s; let per=null,last=null,amp=1,big=false;
+  switch(g.dr){
+    case "beat": per=.5; break;
+    case "slow": per=1.2; amp=.45; break;
+    case "renda": per=.13; break;
+    case "doko": per=.1; break;
+    case "cresc": per=.32; amp=.25+.75*mn(1,u/L); break;
+    case "aizu": case "kime": { const h=hitTimes(g).map(x=>x-g.s).filter(x=>x<=u); if(h.length){ last=h[h.length-1]; big=true; } break; }
+  }
+  if(per!=null) return {hp:((t%per)+per)%per, amp, per, n:Math.floor(t/per), stop:false};
+  if(last==null) return {hp:9,amp:0,stop:g.dr==="stop"};
+  return {hp:u-last, amp:1, big, n:0, stop:false};
+}
+
+// ---- 鳴り物の譜面（右から流れてきて「いま」の線で切りかわる） ----
+const scoreEl=document.getElementById("nscore");
+const SW=1200, HX=150, NX=360, PPS=100;
+function drummer(cx,cy,g,t){
+  const h=hitInfo(g,t); let s="";
+  const col=g?NT[g.ty].c:"#888";
+  s+=`<rect x="${cx-24}" y="${cy+2}" width="48" height="22" rx="5" fill="#6d4426" stroke="#2a180c"/>`;
+  s+=`<ellipse cx="${cx}" cy="${cy+2}" rx="24" ry="7" fill="#e7d6b0" stroke="#7a5a3a" stroke-width="2"/>`;
+  let L=0,R=0;
+  if(g && g.dr==="unk"){ s+=`<text x="${cx}" y="${cy-24}" font-size="18" font-weight="bold" fill="#bbb" text-anchor="middle">？</text>`; }
+  else if(h && h.stop){ L=-1; R=-1; }
+  else if(h){ const d=Math.exp(-h.hp*(h.per&&h.per<.2?40:16))*h.amp; if(h.per&&h.per<.2){ if(h.n%2) L=d; else R=d; } else { L=d; R=d*.6; } }
+  for(const [sg,v] of [[-1,L],[1,R]]){
+    const hx=cx+sg*30, hy=cy-16, up=v<0?[cx+sg*22,cy-46]:[cx+sg*12,cy-36], dn=[cx+sg*8,cy-1], k=v<0?0:v;
+    const tx=up[0]+(dn[0]-up[0])*k, ty=up[1]+(dn[1]-up[1])*k;
+    s+=`<line x1="${hx}" y1="${hy}" x2="${f1(tx)}" y2="${f1(ty)}" stroke="#e8d9b5" stroke-width="4" stroke-linecap="round"/><circle cx="${hx}" cy="${hy}" r="5" fill="#e9c9a7"/>`;
+  }
+  if(h && !h.stop && h.hp<.12 && h.amp>.3) s+=`<circle cx="${cx}" cy="${cy+2}" r="${f1(14+h.hp*160)}" fill="none" stroke="${col}" stroke-width="3" opacity="${f1(1-h.hp/.12)}"/>`;
+  if(h && h.stop) s+=`<text x="${cx}" y="${cy-24}" font-size="18" font-weight="bold" fill="#fff" text-anchor="middle">！</text>`;
+  return s;
+}
+function flutist(cx,cy,g,t){
+  let s=`<rect x="${cx-30}" y="${cy-4}" width="60" height="7" rx="3" fill="#c8a165" stroke="#6b4a1f"/>`;
+  for(let i=0;i<5;i++) s+=`<circle cx="${cx-14+i*8}" cy="${cy-.5}" r="1.6" fill="#4a3110"/>`;
+  if(!g) return s;
+  const md=g.fl, per={mel:.7,nos:.7,slow:1.6,trill:.13,piro:.13,unk:.7}[md], col=FLC[md]||"#cfc6b2";
+  if(md==="stop"){ s+=`<text x="${cx}" y="${cy-12}" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">止</text>`; return s; }
+  if(md==="nos"||md==="unk"){ s+=`<text x="${cx}" y="${cy-12}" font-size="12" fill="#8a8270" text-anchor="middle">${md==="nos"?"記載なし":"？"}</text>`; return s; }
+  if(!per) return s;
+  for(let k=0;k<12;k++){ const te=Math.floor(t/per)*per-k*per, age=t-te; if(age>1.1) break;
+    if(md==="piro" && !stepOn(te)) continue;
+    const wig=(md==="trill"||md==="piro")?sn(age*45)*4:0;
+    s+=`<text x="${f1(cx+22+age*38)}" y="${f1(cy-6-age*26+wig)}" font-size="${md==="trill"||md==="piro"?13:16}" fill="${col}" opacity="${f1((md==="nos"||md==="unk"?.45:1)*(1-age/1.1))}">♪</text>`; }
+  return s;
+}
+function wavePath(X,a,b,ym,amp,per,zig){
+  const step=zig?per/2:per/10; let d="", i=Math.floor(a/step);
+  for(let tt=i*step; tt<=b+step; tt+=step,i++){ const x=X(mn(mx(tt,a),b)), y=zig?ym+(i%2?amp:-amp):ym+amp*sn(2*Math.PI*tt/per); d+=(d?"L":"M")+f1(x)+","+f1(y); }
+  return d;
+}
+function drumSeg(g,X,a,b){
+  const col=NT[g.ty].c, ym=68, xa=X(a), xb=X(b), xs=X(g.s); let s="";
+  const lab=(txt,c,w)=>`<text x="${f1(mx(xs,HX)+6)}" y="52" font-size="14" font-weight="${w||"bold"}" fill="${c}">${txt}</text>`;
+  const block=()=>`<rect x="${f1(xa)}" y="46" width="${f1(xb-xa)}" height="44" rx="6" fill="${col}" fill-opacity=".22" stroke="${col}" stroke-width="2"/>`;
+  const ticks=(per,alt)=>{ let r=""; for(let k=Math.ceil(a/per);k*per<=b;k++){ const h=alt&&k%2?14:24; r+=`<rect x="${f1(X(k*per)-1.5)}" y="${f1(ym+8-h/2)}" width="3" height="${h}" fill="${col}"/>`; } return r; };
+  switch(g.dr){
+    case "beat": for(let k=Math.ceil(a/.5);k*.5<=b;k++) s+=`<circle cx="${f1(X(k*.5))}" cy="${ym+6}" r="4" fill="#8d8676"/>`; if(g.e-g.s>2.5) s+=lab("トン トン（いつもの）","#9a9384","normal"); break;
+    case "slow": for(let k=Math.ceil(a/1.2);k*1.2<=b;k++) s+=`<circle cx="${f1(X(k*1.2))}" cy="${ym+6}" r="3" fill="${col}"/>`; s+=lab("ゆっくり・小さく",col); break;
+    case "renda": s+=block()+ticks(.13)+lab("ドンドンドン（連打）","#fff"); break;
+    case "doko": s+=block()+ticks(.1,1)+lab("ドコドコ（連打）","#fff"); break;
+    case "cresc": { const L=g.e-g.s, hh=tt=>4+18*(tt-g.s)/L; s+=`<polygon points="${f1(xa)},${f1(ym+6-hh(a))} ${f1(xb)},${f1(ym+6-hh(b))} ${f1(xb)},${f1(ym+6+hh(b))} ${f1(xa)},${f1(ym+6+hh(a))}" fill="${col}" fill-opacity=".35"/>`;
+      for(let k=Math.ceil(a/.32);k*.32<=b;k++){ const tt=k*.32; s+=`<circle cx="${f1(X(tt))}" cy="${ym+6}" r="${f1(1.5+5*(tt-g.s)/L)}" fill="${col}"/>`; } s+=lab("太鼓 小さく→だんだん大きく",col); break; }
+    case "aizu": case "kime": { const w=(g.c&&g.c.h)||["ドン"], ht=hitTimes(g);
+      if(g.dr==="kime"){ const x=X(g.s), st=[]; for(let i=0;i<10;i++){ const r=i%2?10:24, an=i*Math.PI/5-Math.PI/2; st.push(f1(x+r*Math.cos(an))+","+f1(ym+6+r*sn(an))); }
+        s+=`<polygon points="${st.join(" ")}" fill="${col}" fill-opacity=".35" stroke="${col}" stroke-width="2"/>`; }
+      w.forEach((wd,i)=>{ const x=X(ht[i]), kan=/カ/.test(wd), big=/[ドカ]|！/.test(wd);
+        s+= kan ? `<polygon points="${f1(x)},${ym-6} ${f1(x+12)},${ym+16} ${f1(x-12)},${ym+16}" fill="${col}" stroke="#111"/>` : `<circle cx="${f1(x)}" cy="${ym+6}" r="${big?11:6}" fill="${col}" stroke="#111"/>`;
+        s+=`<text x="${f1(x)}" y="${ym+(i%2?-12:40)}" font-size="${big?16:14}" fill="${col}" text-anchor="middle" font-weight="900">${esc(wd)}</text>`; }); break; }
+    case "stop": s+=`<rect x="${f1(X(g.s)-3)}" y="42" width="7" height="52" fill="#fff"/><text x="${f1(X(g.s)+9)}" y="${ym+12}" font-size="16" font-weight="900" fill="#fff">ピタッ！止める</text>`; break;
+    case "unk": s+=`<rect x="${f1(xa)}" y="46" width="${f1(xb-xa)}" height="44" fill="url(#hatch)"/>`+lab("？ 動き表に書いていない","#bbb"); break;
+  }
+  return s;
+}
+function fluteSeg(g,X,a,b){
+  const ym=124, xs=X(g.s), col=FLC[g.fl]||"#8d8676"; let s="";
+  const lab=(txt,c,w)=>`<text x="${f1(mx(xs,HX)+6)}" y="108" font-size="14" font-weight="${w||"bold"}" fill="${c}">${txt}</text>`;
+  switch(g.fl){
+    case "mel": s+=`<path d="${wavePath(X,a,b,ym+4,5,1.4)}" fill="none" stroke="#8d8676" stroke-width="2"/>`; if(g.e-g.s>2.5) s+=lab("〜 いつもの","#9a9384","normal"); break;
+    case "nos": s+=`<path d="${wavePath(X,a,b,ym+4,5,1.4)}" fill="none" stroke="#6b665b" stroke-width="2" stroke-dasharray="4 6"/>`; if(g.e-g.s>3) s+=lab("（笛・鐘は指定なし）","#7d776a","normal"); break;
+    case "slow": s+=`<path d="${wavePath(X,a,b,ym+4,3,3)}" fill="none" stroke="${col}" stroke-width="2"/>`+lab("ゆっくり・小さく",col); break;
+    case "trill": s+=`<rect x="${f1(X(a))}" y="100" width="${f1(X(b)-X(a))}" height="44" rx="6" fill="${col}" fill-opacity=".2" stroke="${col}" stroke-width="2"/><path d="${wavePath(X,a,b,ym+6,10,.12,1)}" fill="none" stroke="${col}" stroke-width="3"/>`+lab("ピロピロ（トリル）","#fff"); break;
+    case "piro": for(let k=Math.floor(a-SNEAK0);SNEAK0+k<=b;k++){ const q0=SNEAK0+k; if(q0<SNEAK0||q0>=SNEAK1) continue; const p0=mx(a,q0),p1=mn(b,q0+.5);
+        if(p1>p0) s+=`<path d="${wavePath(X,p0,p1,ym+6,8,.12,1)}" fill="none" stroke="${col}" stroke-width="3"/><text x="${f1(X(q0))}" y="${ym-10}" font-size="13" fill="${col}">🐾</text>`; }
+      s+=lab("ピロロ ピロロ（女熊の足音に合わせる・🐾の間隔は目安）",col); break;
+    case "stop": s+=`<rect x="${f1(X(g.s)-3)}" y="98" width="7" height="48" fill="#fff"/>`; break;
+    case "unk": s+=`<rect x="${f1(X(a))}" y="100" width="${f1(X(b)-X(a))}" height="44" fill="url(#hatch)"/>`; break;
+  }
+  return s;
+}
+function drawScore(t){
+  const X=tt=>NX+(tt-t)*PPS, t0=t-(NX-HX)/PPS, t1=t+(SW-NX)/PPS;
+  let s=`<defs><clipPath id="sclip"><rect x="${HX}" y="0" width="${SW-HX}" height="150"/></clipPath>
+   <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#24221e"/><rect width="4" height="8" fill="#3d3930"/></pattern></defs>`;
+  s+=`<rect width="${SW}" height="150" fill="#15130f"/><rect x="${HX}" y="40" width="${SW-HX}" height="54" fill="#1d1a15"/><rect x="${HX}" y="96" width="${SW-HX}" height="52" fill="#191712"/>`;
+  s+=`<g clip-path="url(#sclip)">`;
+  if(t1>T("6:00")-1) for(const g of SEGS){ if(g.e<t0||g.s>t1) continue; const a=mx(g.s,t0-.5), b=mn(g.e,t1+.5); s+=drumSeg(g,X,a,b)+fluteSeg(g,X,a,b); }
+  // きっかけ（動き）
+  CHG.forEach((g,i)=>{ if(g.s<t0-3||g.s>t1) return; const nx=CHG[i+1];
+    if(g.ty==="normal" && nx && nx.s-g.s<1.2) return;
+    const txt=g.ty==="normal"?"いつもへ":g.ty==="unknown"?"？":g.c.k, col=g.ty==="normal"?"#6b665b":NT[g.ty].c, w=txt.length*15+26, x=X(g.s);
+    s+=`<line x1="${f1(x)}" y1="30" x2="${f1(x)}" y2="146" stroke="${col}" stroke-width="1.5" stroke-dasharray="3 3" opacity=".7"/>`;
+    s+=`<g transform="translate(${f1(x)},4)"><rect x="0" y="0" width="${w}" height="26" rx="13" fill="${col}"/><text x="${w/2}" y="19" font-size="15" font-weight="bold" text-anchor="middle" fill="${g.ty==="normal"||g.ty==="unknown"?"#fff":"#111"}">${g.ty==="normal"||g.ty==="unknown"?"":"▶"}${esc(txt)}</text></g>`; });
+  s+=`<rect x="${HX}" y="0" width="${NX-HX}" height="150" fill="#000" opacity=".42"/>`;
+  s+=`</g>`;
+  // 練習中は先をかくす
+  lane.style.visibility=Q.mode?"hidden":"";
+  if(Q.mode) s+=`<rect x="${NX+2}" y="0" width="${SW-NX}" height="150" fill="#15130f"/><text x="${(NX+SW)/2}" y="84" font-size="22" fill="#e9a13b" text-anchor="middle" font-weight="bold">？ この先はかくしています。動きを見て当てよう！</text>`;
+  // 「いま」の線
+  const g=segAt(t);
+  s+=`<line x1="${NX}" y1="0" x2="${NX}" y2="150" stroke="#fff" stroke-width="3"/><polygon points="${NX-8},0 ${NX+8},0 ${NX},10" fill="#fff"/>`;
+  // 左の見出し（太鼓の人・笛の人が今の鳴り方で動く）
+  s+=`<rect width="${HX}" height="150" fill="#100e0b"/><line x1="${HX}" y1="0" x2="${HX}" y2="150" stroke="#3a3730"/>`;
+  s+=`<text x="10" y="23" font-size="14" fill="#b9b2a3">きっかけ（動き）</text>`;
+  const dCol=g&&g.dr!=="beat"?NT[g.ty].c:"#b9b2a3", fCol=g&&FLC[g.fl]?FLC[g.fl]:"#b9b2a3";
+  if(g&&g.dr!=="beat"&&g.dr!=="unk") s+=`<rect x="2" y="42" width="${HX-4}" height="50" rx="8" fill="${dCol}" fill-opacity=".2" stroke="${dCol}"/>`;
+  if(g&&FLC[g.fl]) s+=`<rect x="2" y="98" width="${HX-4}" height="48" rx="8" fill="${fCol}" fill-opacity=".2" stroke="${fCol}"/>`;
+  s+=drummer(36,64,g,t)+`<text x="74" y="62" font-size="17" font-weight="bold" fill="${dCol}">🥁太鼓</text><text x="74" y="82" font-size="12" fill="${dCol}">${g?esc(drTxt(g).replace(/（.+）/,"")):""}</text>`;
+  s+=flutist(34,124,g,t)+`<text x="74" y="118" font-size="17" font-weight="bold" fill="${fCol}">🎶笛・鐘</text><text x="74" y="138" font-size="12" fill="${fCol}">${g?esc(FLN[g.fl].replace(/（.+）/,"")):""}</text>`;
+  if(t<T("6:00")-.01 || t>=AFTER) s+=`<text x="${(NX+SW)/2}" y="84" font-size="18" fill="#8a8270" text-anchor="middle">${t<T("6:00")?"6:00 から鳴り物の譜面が流れてきます":"動き表はここまで"}</text>`;
+  scoreEl.innerHTML=s;
+}
+
+// ---- 切りかわった瞬間に大きく出る文字 ----
+const burstEl=document.getElementById("burst");
+const BURST={aizu:["どん どん ドン カッ！","カッで次へ"],renda:["ドンドンドン！","太鼓の連打"],kime:["ドン！カッ！","決め→いつもへ"],
+  dokopiro:["ドコドコ＆ピロピロ","太鼓＝連打／笛＝トリル"],yukkuri:["ゆっくり…小さく…","全員"],stop:["ピタッ！","全部止める"],
+  ashioto:["ピロロ ピロロ","笛＝足音に合わせる"],unknown:["？","動き表に書いてない"],normal:["いつものリズムへ","通常"]};
+let burstKey=null;
+function drawBurst(t){
+  const g=segAt(t);
+  if(Q.mode || !g || !CHG.includes(g)){ if(Q.mode||!g) { burstEl.className="burst"; burstKey=null; } return; }
+  const age=t-g.s;
+  if(g.s===burstKey) return;
+  burstKey=g.s;
+  if(age<0||age>.8){ burstEl.className="burst"; return; }
+  const ty=g.ty;
+  let [big,sub]=BURST[ty]; if((ty==="aizu"||ty==="kime")&&g.c&&g.c.h) big=g.c.h.join(" ");
+  const col=ty==="normal"?"#cfc6b2":NT[ty].c;
+  const sub2 = ty==="aizu"&&g.c&&g.c.fl==="trill" ? "笛は最後のカッで通常" : sub;
+  burstEl.innerHTML=`<div class="bb" style="color:${col}">${esc(big)}</div><div class="bs">${g.c&&g.c.k?`<span style="background:${col}">${esc(g.c.k)}</span>`:""}<em style="font-style:normal">${esc(sub2)}</em></div>`;
+  burstEl.className="burst"; void burstEl.offsetWidth; burstEl.className="burst show b-"+ty;
+}
 
 // 場面バーの下の帯
 const lane=document.getElementById("lane"), head2=document.getElementById("head2");
@@ -1015,27 +1348,81 @@ function drawNari(t){
 
 // 鳴り物タブ
 window.renderNari=function(){
-  let h=`<div class="card"><h2>鳴り物の7つの型</h2>
-   <div class="note" style="margin-top:0">動き表の書き方から読みとった覚え方です。鳴り物は<b>動きをきっかけに</b>変わります。</div>
-   <div class="chain">いちばん大事な流れ：<span style="background:${NT.renda.c}">連打（ため）</span>→<span style="background:${NT.kime.c}">決め（着地）</span>→<span style="background:${NT.normal.c};color:#fff">通常</span></div>`;
-  for(const k of QTYPES) h+=`<div class="ncard"><div class="sw" style="background:${NT[k].c}"></div><div><b>${NT[k].n}</b>　<span style="color:var(--sub)">＝${NT[k].tip}</span><div class="when">${NT[k].rule}</div></div></div>`;
-  h+=`<div class="ncard"><div class="sw" style="background:${NT.normal.c}"></div><div><b>通常</b><div class="when">上のどれでもない間。</div></div></div></div>`;
+  const scn=c=>(S.slice().reverse().find(x=>x.start<=c.s+.01)||S[0]).n;
+  const go=(c,tag,note)=>`<li data-s="${c.s}"><span class="tg2">${tag}</span><span class="tt">${fmt(c.s)}</span> 場面${scn(c)} <b>${esc(c.k||"")}</b>${note?`<br><span class="nt">${esc(note)}</span>`:""}</li>`;
+  const dTag=c=>c.ty==="dokopiro"?"ドコドコ":"ドンドン", fTag=c=>c.ty==="ashioto"?"足音":c.fl==="trill"?"継続":"開始";
+  const fNote=c=>c.ty==="ashioto"?"足音に合わせてピロロ":c.fl==="trill"?"トリルのまま→カッで通常":"ピロピロ";
+  const drumL=CUES.filter(c=>c.ty==="renda"||c.ty==="dokopiro"), fluteL=CUES.filter(c=>c.ty==="dokopiro"||c.fl==="trill"||c.ty==="ashioto");
+  let h=`<div class="card"><h2>鳴り物の見方</h2>
+   <div class="qbtns"><button id="tourB" class="big">👀 見方を体験：太鼓（15秒）</button><button id="tourF" class="big">👀 笛・鐘（15秒）</button></div>
+   <div class="note" style="margin-top:0">左の下の<b>譜面</b>は、上が<b>きっかけの動き</b>、まん中が<b>🥁太鼓</b>、下が<b>🎶笛・鐘</b>。色の帯が右から流れてきて、白い「いま」の線に来た瞬間に鳴り方が変わります。</div>
+   <div class="chain">覚える流れ：<span style="background:${NT.renda.c}">連打（ため）</span>→<span style="background:${NT.kime.c}">決め（着地）</span>→<span style="background:${NT.normal.c};color:#fff">いつもの</span></div></div>`;
+  h+=`<div class="card"><h2>早見表：ここで変わる！</h2><div class="hayami">
+   <div><div class="hh" style="background:${NT.renda.c}">🥁 太鼓が連打になる</div><ul>${drumL.map(c=>go(c,dTag(c))).join("")}</ul></div>
+   <div><div class="hh" style="background:${NT.dokopiro.c}">🎶 笛・鐘の切りかえ</div><ul>${fluteL.map(c=>go(c,fTag(c),fNote(c))).join("")}</ul></div></div>
+   <div class="note">押すと、その3秒前から再生します。</div></div>`;
   h+=`<div class="card"><h2>練習する</h2>
-   <div class="note" style="margin-top:0">練習中は画面の「鳴り物」表示が消えます。動きを見て当ててください。</div>
+   <div class="note" style="margin-top:0">練習中は譜面の先と、右の答えがかくれます。動きを見て当ててください。</div>
    <div class="qbtns"><button id="qA">❓ つぎは何？（この場面から）</button><button id="qA0">❓ つぎは何？（最初から）</button></div>
    <div class="qbtns"><button id="qB">👆 タイミング（この場面から）</button><button id="qB0">👆 タイミング（最初から）</button></div>
    <div class="note">❓ 変わる2秒前に動画が止まり、このあとどうなるかを選びます。<br>👆 変わったと思った瞬間に型のボタンを押します（キーボードは数字 1〜7）。</div>
-   <div class="score" id="score">${scoreHtml()}</div></div>`;
+   <div class="score" id="qscore">${scoreHtml()}</div></div>`;
+  h+=`<div class="card"><h2>鳴り物の7つの型</h2><div class="note" style="margin-top:0">動き表の書き方から読みとった覚え方です。鳴り物は<b>動きをきっかけに</b>変わります。</div>`;
+  for(const k of QTYPES){ const d=DR[k], f=FLm[k];
+    h+=`<div class="ncard"><div class="sw" style="background:${NT[k].c}"></div><div><b>${NT[k].n}</b>　<span style="color:var(--sub)">＝${NT[k].tip}</span><div class="when">${NT[k].rule}</div><div class="inst">🥁 ${esc(DRN[d])}　🎶 ${esc(FLN[f])}</div></div></div>`; }
+  h+=`<div class="ncard"><div class="sw" style="background:${NT.normal.c}"></div><div><b>通常</b><div class="when">上のどれでもない間。</div></div></div></div>`;
   h+=`<div class="card"><h2>きっかけ一覧 <button onclick="window.print()">印刷</button></h2><table class="cues">`;
-  for(const c of CUES) h+=`<tr data-i="${c.i}" data-s="${c.s}"><td class="tt">${fmt(c.s)}</td><td>${chip(c.ty)}<br>${esc(c.why)}${c.g?"<br><span style='color:var(--sub);font-size:12px'>（終わりの時刻は目安）</span>":""}</td></tr>`;
-  h+=`</table><div class="note">時刻は動画を見て決めた目安（±1秒くらい）。15:01ごろまでと15:08〜15:34は動き表に書いていないので、先生・先輩に確かめてください。</div></div>`;
+  for(const c of CUES) h+=`<tr data-i="${c.i}" data-s="${c.s}"><td class="tt">${fmt(c.s)}</td><td>${chip(c.ty)}${c.h?` <b>${esc(c.h.join(" "))}</b>`:""}<br>${esc(c.why)}${c.g?"<br><span style='color:var(--sub);font-size:12px'>（終わりの時刻は目安）</span>":""}</td></tr>`;
+  h+=`</table><div class="note">時刻は動画を見て決めた目安（±1秒くらい）。14:46〜15:01と15:08〜15:34は動き表に書いていないので、先生・先輩に確かめてください。</div></div>`;
   panel.innerHTML=h;
+  document.getElementById("tourB").onclick=()=>startTour("drum");
+  document.getElementById("tourF").onclick=()=>startTour("flute");
   document.getElementById("qA").onclick=()=>startQ("quiz",false);
   document.getElementById("qA0").onclick=()=>startQ("quiz",true);
   document.getElementById("qB").onclick=()=>startQ("tap",false);
   document.getElementById("qB0").onclick=()=>startQ("tap",true);
-  panel.querySelectorAll("table.cues tr").forEach(r=>r.onclick=()=>{ seek(+r.dataset.s-3); });
+  panel.querySelectorAll("table.cues tr, .hayami li").forEach(r=>r.onclick=()=>{ seek(+r.dataset.s-3); v.play(); });
 };
+
+// ---- いま／つぎ（譜面の上に1行で） ----
+const nowEl=document.getElementById("nowline");
+const drTxt=g=> (g.dr==="aizu"||g.dr==="kime")&&g.c&&g.c.h ? g.c.h.join(" ") : DRN[g.dr];
+function instHtml(g){ const dc=g.dr==="beat"?"#cfc6b2":NT[g.ty].c, fc=FLC[g.fl]||"#cfc6b2";
+  return `🥁<b style="color:${dc}">${esc(drTxt(g))}</b>　🎶<b style="color:${fc}">${esc(FLN[g.fl])}</b>`; }
+function drawNow(t){
+  const g=segAt(t);
+  if(!g){ nowEl.innerHTML=`<span class="nl-dim">${t<T("6:00")?"6:00 から鳴り物が始まります（場面1 どんどんドンカッ）":"動き表はここまで"}</span>`; return; }
+  let h=`<span class="nl-now"><span class="tag">いま</span>${instHtml(g)}</span>`;
+  const nx=CHG.find(c=>c.s>t+.01);
+  if(Q.mode) h+=`<span class="nl-next"><span class="tag q">練習中</span>つぎの変わり目は、動きを見て当てよう</span>`;
+  else if(nx){ const dt=nx.s-t, col=nx.ty==="normal"?"#cfc6b2":NT[nx.ty].c, k=nx.ty==="normal"?"いつもにもどる":nx.ty==="unknown"?"？":nx.c.k;
+    h+=`<span class="nl-next${dt<=3?" soon":""}"><span class="tag" style="background:${col}">つぎ</span>あと<b class="cd">${dt<10?dt.toFixed(1):Math.round(dt)}</b>秒 <b style="color:${col}">▶${esc(k)}</b> → ${instHtml(nx)}</span>`; }
+  nowEl.innerHTML=h;
+}
+
+// ---- 見方ツアー（場面6のジャンプで、譜面の読み方を体験） ----
+const TOURS={
+ drum:{from:T("10:13.3"),end:T("10:26"),tips:[["10:13.3","① まず熊を見よう。いまは いつものリズム（トン トン）"],["10:15.2","② 右から赤い帯が流れてきた！ もうすぐ太鼓が連打になる"],
+   ["10:18","③ 熊がジャンプ！ 赤が白い線に来た＝ドンドンドン（連打）"],["10:23","④ ★が来た！「カッ！」で決める"],["10:24.5","⑤ そして いつものリズムへ。どの場面もこの見方！"]]},
+ flute:{from:T("7:55.5"),end:T("8:08"),tips:[["7:55.5","① 笛の人用。狩人が去っていく。いまは いつもの笛"],["7:57.5","② 右から紫の帯！ もうすぐ熊が出てくる"],
+   ["8:00","③ 紫が白い線に来た＝笛はトリル（ピロピロ）・太鼓はドコドコ"],["8:01","④ その音にのって女熊が出てきた！（音が少し先）"],
+   ["8:03.5","⑤ 熊が出てくる間ずっとトリル。場面4に入っても続けて、太鼓の最後の「カッ」で いつもへ"]]}};
+for(const k in TOURS) TOURS[k].tips=TOURS[k].tips.map(([a,b])=>[T(a),b]);
+const tipEl=document.getElementById("tourtip"), helpTx=document.getElementById("helpTx"); let tour=null, tourKeep=null;
+document.getElementById("tourB2").onclick=()=>startTour("drum");
+document.getElementById("tourB3").onclick=()=>startTour("flute");
+function startTour(k){ if(Q.mode) stopQ();
+  tourKeep={loop,stopEach}; if(loop) toggleLoop(); if(stopEach) toggleStop();   // ツアー中はくり返し・場面停止を止める const d=TOURS[k||"drum"]; if(view==="video") document.querySelector('[data-view="both"]').click();
+  setRate(.75); seek(d.from+.05); v.play(); tour={d,on:false}; }
+function showTip(h){ tipEl.innerHTML=h; tipEl.className=h?"tourtip show":"tourtip"; helpTx.style.visibility=h?"hidden":""; }
+function drawTour(t){
+  if(!tour) return;
+  const d=tour.d;
+  if(!tour.on){ if(t>=d.from-.3&&t<=d.end) tour.on=true; else return; }
+  if(t<d.from-.5||t>d.end){ if(t>d.end) v.pause();
+    setRate(1); tour=null; if(tourKeep){ if(tourKeep.loop&&!loop) toggleLoop(); if(tourKeep.stopEach&&!stopEach) toggleStop(); tourKeep=null; } showTip(`<span class="tg">見方ツアー</span>おわり！ ほかの場面も同じ見方です。右の「🥁鳴り物」タブの早見表から選べます`); setTimeout(()=>{ if(!tour) showTip(""); },5000); return; }
+  const tp=d.tips.filter(x=>x[0]<=t+.1).pop(); if(tp) showTip(`<span class="tg">見方ツアー</span>${esc(tp[1])}`);
+}
 
 // ---- 練習（クイズ／タイミング） ----
 const Q={mode:null,from:0,done:new Set(),ok:0,ng:0,log:[],asking:null};
@@ -1045,7 +1432,7 @@ function scoreHtml(){
   const last=Q.log.slice(-6).reverse().map(x=>`<div>${x}</div>`).join("");
   return `<b>${Q.mode==="quiz"?"❓ つぎは何？":Q.mode==="tap"?"👆 タイミング":"前回"}</b>　◎○ ${Q.ok}　× ${Q.ng}${last}`;
 }
-function updScore(){ const el=document.getElementById("score"); if(el) el.innerHTML=scoreHtml(); }
+function updScore(){ const el=document.getElementById("qscore"); if(el) el.innerHTML=scoreHtml(); }
 function targets(){ return CUES.filter(c=>c.ty!=="unknown" && c.s>=Q.from-0.01); }
 function nearStep(c){
   let best=null,bd=9;
@@ -1053,6 +1440,7 @@ function nearStep(c){
   return best && bd<=3 ? `場面${best.s.n} ${roles(best.s.steps[best.k].replace(/^!/,""))}` : "";
 }
 function startQ(m,fromTop,idx){
+  document.body.classList.add("quizzing");
   Q.mode=m; Q.done=new Set(); Q.ok=0; Q.ng=0; Q.log=[]; Q.asking=null;
   loop=false; stopEach=false; loopBtn.classList.remove("on"); stopBtn.classList.remove("on");
   const i = idx!=null ? idx : (fromTop||cur<0 ? 0 : cur);
@@ -1065,6 +1453,7 @@ function startQ(m,fromTop,idx){
 function stopQ(){
   if(!Q.mode) return;
   Q.log.push(`おわり：◎○ ${Q.ok}　× ${Q.ng}`);
+  document.body.classList.remove("quizzing"); force=true;
   Q.mode=null; Q.asking=null; quizEl.classList.remove("show"); tpad.classList.remove("show"); updScore();
 }
 function showPad(msg){
@@ -1080,7 +1469,9 @@ function tap(ty){
   if(Q.mode!=="tap") return;
   const t=v.currentTime+OFFSET;
   let best=null,bd=9;
-  for(const c of targets()) if(!Q.done.has(c.i)){ const d=ab(t-c.s); if(d<bd){bd=d;best=c;} }
+  const cand=targets().filter(c=>!Q.done.has(c.i) && ab(t-c.s)<=2);
+  for(const c of cand.filter(c=>c.ty===ty)) { const d=ab(t-c.s); if(d<bd){bd=d;best=c;} }   // 押した型と同じ合図を先に探す
+  if(!best) for(const c of cand.filter(c=>c.s<=t)){ const d=ab(t-c.s); if(d<bd){bd=d;best=c;} }   // 型ちがいは、もう始まった合図だけ
   if(!best || bd>2){ tmsg(`${chip(ty)} … まだ変わらないよ（早すぎ？）`); return; }
   Q.done.add(best.i);
   const d=t-best.s, when=d<0?"早い":"おそい";
@@ -1095,7 +1486,8 @@ function tap(ty){
 function ask(c){
   Q.asking=c; v.pause();
   const nowC=cueAt(v.currentTime+OFFSET);
-  let h=`<h3>❓ このあと鳴り物はどうなる？</h3><div class="hint">いま：${nowC?chip(nowC.ty):""}<br>このとき起きる動き：${nearStep(c)||"（動画を見て）"}</div><div class="ch">`;
+  const kq=c.k && !/ドコ|ピロ|カッ/.test(c.k) ? `<b>${esc(c.k)}</b>` : (nearStep(c)||"（動画を見て）");
+  let h=`<h3>❓ このあと鳴り物はどうなる？</h3><div class="hint">いま：${nowC?chip(nowC.ty):""}<br>きっかけの動き：${kq}</div><div class="ch">`;
   QTYPES.forEach((k,i)=>h+=`<button data-ans="${k}" style="border-left-color:${NT[k].c}">${i+1} ${NT[k].n}</button>`);
   h+=`</div><div class="res" id="qres"></div><div class="qbtns" style="margin-top:10px"><button id="qgo" style="display:none">つづける ▶（スペース）</button><button id="qend">やめる</button></div>`;
   quizEl.innerHTML=h; quizEl.classList.add("show");
@@ -1108,7 +1500,7 @@ function answer(ty){
   Q.done.add(c.i);
   const ok=ty===c.ty;
   if(ok) Q.ok++; else Q.ng++;
-  document.getElementById("qres").innerHTML = (ok?`<span class="ok">◎ 正解！</span> `:`<span class="ng">× ざんねん</span> 正解は `)+chip(c.ty)+
+  document.getElementById("qres").innerHTML = (ok?`<span class="ok">◎ 正解！</span> `:`<span class="ng">× ざんねん</span> 正解は `)+chip(c.ty)+(c.h?` <b style="font-size:22px">${esc(c.h.join(" "))}</b>`:"")+
     `<br>${esc(c.why)}<br><span style="font-size:14px;color:var(--sub)">覚え方：${NT[c.ty].rule||""}</span>`;
   quizEl.querySelectorAll("[data-ans]").forEach(b=>{ b.disabled=true; if(b.dataset.ans===c.ty) b.style.outline="3px solid #fff"; });
   document.getElementById("qgo").style.display="";
@@ -1123,7 +1515,9 @@ function checkQ(t){
   if(Q.mode==="tap"){
     for(const c of targets()) if(!Q.done.has(c.i) && t-c.s>2){ Q.done.add(c.i); Q.ng++; const r=`… 見のがし：${chip(c.ty)}`; tmsg(r+`　<span style="font-size:14px;color:#ccc">${esc(c.why)}</span>`); Q.log.push(`${fmt(c.s)} ${r}`); updScore(); }
   }
-  if(Q.mode && t>=AFTER-0.2){ stopQ(); }
+  if(Q.mode && t>=AFTER-0.2){
+    if(Q.mode==="tap") for(const c of targets()) if(!Q.done.has(c.i) && c.s<=t){ Q.done.add(c.i); Q.ng++; Q.log.push(`${fmt(c.s)} … 見のがし：${chip(c.ty)}`); }
+    stopQ(); }
 }
 document.addEventListener("keydown",e=>{
   if(Q.mode==="tap" && /^[1-7]$/.test(e.key)){ e.preventDefault(); e.stopImmediatePropagation(); tap(QTYPES[+e.key-1]); return; }
@@ -1151,6 +1545,7 @@ document.querySelectorAll("[data-ori]").forEach(b=>b.onclick=()=>{ ori=b.dataset
   if(P.get("tab")==="nari") setTab("nari"); else if(P.get("tab")==="all") setTab("all");
   if(P.get("t")) v.addEventListener("loadedmetadata",()=>seek(T(P.get("t"))),{once:true}); // ?t=10:45 でその時刻から
   const st=P.get("start"); // ?start=quiz / ?start=tap で、開いたらすぐ練習（#場面番号 と組み合わせ可）
+  if(st==="tour"||st==="tourf") v.addEventListener("loadedmetadata",()=>setTimeout(()=>startTour(st==="tour"?"drum":"flute"),300),{once:true});
   if(st==="quiz"||st==="tap") v.addEventListener("loadedmetadata",()=>setTimeout(()=>{ const h=parseInt(location.hash.slice(1),10); startQ(st,false,(h>=1&&h<=S.length)?h-1:null); },300),{once:true});
 }
 
@@ -1164,6 +1559,7 @@ function frame(){
       const A=["H","F","M"].map(id=>actorState(id,t)).filter(Boolean);
       drawMap(t,A); drawFig(t,A); drawCap(t);
     }
+    drawScore(t); drawBurst(t); drawNow(t); drawTour(t);
     drawNari(t);
     // 右の「いまの場面」で今の番号に枠
     if(cur>=0){ const ks=allCurSteps(S[cur],t); document.querySelectorAll(`#c${cur+1} li[data-i]`).forEach(li=>li.classList.toggle("now",ks.includes(+li.dataset.i))); }
