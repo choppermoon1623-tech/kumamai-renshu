@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>熊舞 練習ビューア（第19代引継式 2023.2.25）</title>
+<style>
+:root{
+  --bg:#1b1a17; --panel:#262420; --line:#3a3730; --ink:#f3efe6; --sub:#b9b2a3;
+  --onna:#ff8fb1; --otoko:#7fb8ff; --kari:#8fdc8f; --key:#ffe066; --accent:#e9a13b;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+  font-family:"BIZ UDPGothic","Yu Gothic UI","Meiryo",sans-serif}
+button{font:inherit;color:inherit;background:#34312b;border:1px solid #4a463d;border-radius:8px;
+  padding:6px 12px;cursor:pointer}
+button:hover{background:#3f3b33}
+button.on{background:var(--accent);color:#1b1a17;border-color:var(--accent);font-weight:bold}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 440px;grid-template-rows:auto minmax(0,1fr) auto;
+  height:100vh;gap:0}
+header{grid-column:1/3;display:flex;align-items:center;gap:14px;padding:8px 14px;border-bottom:1px solid var(--line)}
+header h1{font-size:18px;margin:0;font-weight:bold}
+header .src{color:var(--sub);font-size:13px}
+header .sp{flex:1}
+header a{color:var(--sub);font-size:13px}
+
+/* 動画側 */
+.stage{display:flex;flex-direction:column;min-height:0;padding:10px 12px 6px}
+.vwrap{position:relative;flex:1;min-height:0;background:#000;border-radius:8px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center}
+video{max-width:100%;max-height:100%;display:block}
+video.mirror{transform:scaleX(-1)}
+.badge{position:absolute;left:10px;top:10px;background:rgba(0,0,0,.65);padding:6px 12px;border-radius:8px;
+  font-size:22px;font-weight:bold;pointer-events:none}
+.badge small{font-size:14px;color:var(--sub);font-weight:normal;margin-left:8px}
+.mirrorTag{position:absolute;right:10px;top:10px;background:var(--accent);color:#1b1a17;padding:3px 10px;
+  border-radius:6px;font-weight:bold;font-size:14px;display:none}
+.vwrap.isMirror .mirrorTag{display:block}
+.err{color:#ffb4a0;padding:20px;line-height:1.7;display:none}
+
+.ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding-top:8px}
+.ctrl .grp{display:flex;gap:4px;align-items:center;margin-right:10px}
+.ctrl .lbl{color:var(--sub);font-size:13px;margin-right:2px}
+.ctrl .time{font-variant-numeric:tabular-nums;font-size:18px;min-width:120px}
+#play{min-width:90px;font-weight:bold}
+
+/* 場面バー */
+.bar{grid-column:1/3;padding:6px 12px 10px;border-top:1px solid var(--line)}
+.track{position:relative;height:34px;background:#2e2b25;border-radius:6px;overflow:hidden;cursor:pointer}
+.seg{position:absolute;top:0;bottom:0;border-right:1px solid #1b1a17;display:flex;align-items:center;
+  justify-content:center;font-size:12px;color:#d8d0bf;background:#3a362e}
+.seg.alt{background:#433e35}
+.seg.cur{background:var(--accent);color:#1b1a17;font-weight:bold}
+.seg.out{background:#24221e;color:#7d776a}
+.head{position:absolute;top:0;bottom:0;width:3px;background:#fff;pointer-events:none}
+
+/* 右パネル */
+aside{border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.tabs{display:flex;gap:6px;padding:10px 12px 6px}
+.legend{display:flex;gap:12px;padding:0 14px 6px;font-size:13px;color:var(--sub);flex-wrap:wrap}
+.legend b{font-weight:bold}
+.scroll{overflow:auto;flex:1;padding:0 12px 14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:8px}
+.card.cur{border-color:var(--accent);box-shadow:0 0 0 2px rgba(233,161,59,.35)}
+.card h2{margin:0 0 8px;font-size:22px;display:flex;align-items:baseline;gap:10px}
+.card h2 .t{font-size:15px;color:var(--accent);font-weight:normal}
+.card h2 .call{font-size:15px;color:var(--key)}
+.card h2 button{margin-left:auto;font-size:13px;padding:3px 10px}
+.card img{width:100%;background:#fff;border-radius:6px;display:block}
+.steps{list-style:none;padding:0;margin:10px 0 0}
+.steps li{font-size:19px;line-height:1.5;padding:3px 6px;border-radius:5px}
+.steps li.key{background:rgba(255,224,102,.16);box-shadow:inset 3px 0 0 var(--key)}
+.music{margin-top:10px;border-top:1px dashed #4a463d;padding-top:8px;font-size:15px;line-height:1.6;color:#e6dfd0}
+.music .who{display:inline-block;min-width:4.2em;color:var(--sub)}
+.music .k{background:rgba(255,224,102,.22);padding:0 3px;border-radius:3px}
+.note{font-size:13px;color:var(--sub);margin-top:8px;line-height:1.6}
+.r-onna{color:var(--onna);font-weight:bold}
+.r-otoko{color:var(--otoko);font-weight:bold}
+.r-kari{color:var(--kari);font-weight:bold}
+.next{margin-top:10px;font-size:14px;color:var(--sub)}
+.next b{color:var(--ink)}
+.help{font-size:12.5px;color:var(--sub);padding:6px 14px 10px;line-height:1.7;border-top:1px solid var(--line)}
+kbd{background:#34312b;border:1px solid #4a463d;border-radius:4px;padding:0 5px;font-size:12px;color:var(--ink)}
+
+/* 印刷（一覧表示を紙に） */
+@media print{
+  body{background:#fff;color:#000}
+  header,.stage,.bar,.tabs,.legend,.help,.card h2 button{display:none!important}
+  .app{display:block;height:auto}
+  aside{border:0}
+  .scroll{overflow:visible}
+  .card{background:#fff;border:1px solid #999;break-inside:avoid;color:#000}
+  .music{color:#000}
+  .r-onna{color:#c2185b}.r-otoko{color:#1565c0}.r-kari{color:#2e7d32}
+}
+@media (max-width:1000px){
+  .app{grid-template-columns:1fr;grid-template-rows:auto auto auto auto;height:auto}
+  header,.bar{grid-column:1}
+  .vwrap{height:56vw}
+  aside{border-left:0;border-top:1px solid var(--line)}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>熊舞 練習ビューア</h1>
+    <span class="src">第19代引継式（2023.2.25）の動画 × 動きの表（場面1〜28）</span>
+    <span class="sp"></span>
+    <a href="熊舞_動き表.pdf" target="_blank">元の動き表（PDF）</a>
+  </header>
+
+  <section class="stage">
+    <div class="vwrap" id="vwrap">
+      <video id="v" src="kumamai.mp4" preload="auto" playsinline></video>
+      <div class="badge" id="badge">—</div>
+      <div class="mirrorTag">鏡モード（左右反転）</div>
+      <div class="err" id="err">動画（kumamai.mp4）が読み込めません。<br>この index.html と同じフォルダに kumamai.mp4 があるか確かめてください。</div>
+    </div>
+    <div class="ctrl">
+      <div class="grp">
+        <button id="prev" title="前の場面（↑）">◀ 場面</button>
+        <button id="back" title="5秒もどる（←）">↶ 5秒</button>
+        <button id="play" title="再生／一時停止（スペース）">▶ 再生</button>
+        <button id="fwd" title="5秒すすむ（→）">5秒 ↷</button>
+        <button id="next" title="次の場面（↓）">場面 ▶</button>
+      </div>
+      <div class="grp"><span class="time" id="time">0:00</span></div>
+      <div class="grp"><span class="lbl">速さ</span>
+        <button data-rate="0.5">0.5</button><button data-rate="0.75">0.75</button><button data-rate="1" class="on">1</button>
+      </div>
+      <div class="grp">
+        <button id="loop" title="今の場面だけをくり返す（L）">🔁 場面くり返し</button>
+        <button id="stop" title="場面の終わりで一時停止（S）">⏸ 場面ごとに止める</button>
+        <button id="mirror" title="左右反転（M）">↔ 鏡</button>
+      </div>
+    </div>
+  </section>
+
+  <aside>
+    <div class="tabs">
+      <button id="tabNow" class="on">いまの場面</button>
+      <button id="tabAll">ぜんぶの場面</button>
+      <button id="printBtn" title="ぜんぶの場面を紙に印刷">印刷</button>
+    </div>
+    <div class="legend">
+      <span><b class="r-onna">♀ 女熊</b></span><span><b class="r-otoko">♂ 男熊</b></span><span><b class="r-kari">狩 狩人</b></span>
+      <span><span style="background:rgba(255,224,102,.25);padding:0 4px">黄色</span>＝きっかけ・大事なところ</span>
+    </div>
+    <div class="scroll" id="panel"></div>
+    <div class="help">
+      <kbd>スペース</kbd> 再生/停止　<kbd>←</kbd><kbd>→</kbd> 5秒　<kbd>↑</kbd><kbd>↓</kbd> 前/次の場面　<kbd>L</kbd> くり返し　<kbd>S</kbd> 場面ごとに止める　<kbd>M</kbd> 鏡　<kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 速さ<br>
+      鏡モード：動画の人と向かい合って同じ向きにまねするとき用。図は反転しません。
+    </div>
+  </aside>
+
+  <div class="bar">
+    <div class="track" id="track"><div class="head" id="head"></div></div>
+  </div>
+</div>
+
+<script>
+// 動画ファイルは元動画の 5:55〜19:42 を切り出してある。表示する時刻は元動画（＝動き表）の時刻。
+const OFFSET = 355;          // 5:55
+const CLIP_END = 355 + 827;  // 19:42（熊が客席へ向かう所で終わり）
+
+// 動き表（22.pdf）の書き起こし。先頭が「!」の行＝動き表で黄色く塗ってある所。
+// music の中の [ ] ＝黄色く塗ってある所。
+const S = [
+ {n:1, t:"6:00", call:"どんどんドンカッ", steps:["①中央経由して右前方へ","②右前方で背伸び","③左前方で背伸び","④中央へ戻り伸びて、手ぬぐい"],
+  music:[["楽器隊","通常のリズム"]]},
+ {n:2, t:"7:05", steps:["①右へかき分け耳","②左かき分け耳「おーい熊が出るぞ！」","③笛吹きながら出たところへ"],
+  music:[["楽器隊","通常リズム"]]},
+ {n:3, t:"8:00", steps:["①女熊から出ていく","②半分くらいで男熊GO"],
+  music:[["楽器隊","どこどこどこ…＆ピロピロピロ"]]},
+ {n:4, t:"9:05", call:"「せーの」", steps:["①そろったら、顔をグルんからカチカチ","!②顔戻してジャンプ","③後ろに３歩　←カッどんどんどん","④前、後ろ、前でジャンプ","⑤顔グルんからのカチカチ"],
+  music:[["太鼓","どんどん[ドンカッから]通常"],["笛・鐘","ピロピロ…カッで通常"]]},
+ {n:5, t:"9:24", steps:["①女熊から左回りに","②目の前通過したら後ろを男熊追いかけ","③１周して元の場所へ戻る"],
+  music:[["楽器隊","通常"]]},
+ {n:6, t:"9:53", steps:["①女熊は足かけてぴょんぴょん","①男熊は後ろの人が足で顔３回ける","②男熊しゃがみ女熊の方見る","③女熊２回けるふり、３回目こつん","④立って顔グルん","⑤ジャンプ内、外、内して外側へぐるり"],
+  music:[["太鼓","ジャンプしたらドンドンドン[から、カッ！]その後、通常"]]},
+ {n:7, t:"10:30", steps:["①男熊中央前方でしゃがみ（右向き）","②女熊右回りでそのクマの横へ","③この後男熊の上に女熊乗る","④上で口カチカチ"],
+  music:[["太鼓","熊が乗る前から、ドンドンドン　[降りると同時にドン！からのカッ]"]]},
+ {n:8, t:"10:56", steps:["①移動して","②寝る"],
+  music:[["楽器隊","寝る前ゆっくり＆小さく"]]},
+ {n:9, t:"11:32", steps:["①右へ出て　背伸びキョロ","②左へ行って　背伸びキョロ","③男熊へ向かう"],
+  music:[["楽器隊","[どんどんドンカッから]通常"]]},
+ {n:10, t:"12:28", steps:["①びっくりして逆いってびっくり","②真ん中で南無南無","③男熊の方見て、女熊の方見て"],
+  music:[["楽器隊","通常"]]},
+ {n:11, t:"12:39", steps:["①男熊の方に向かい","②顔の前で手を大きくフリフリ","!③叩くふり２回、３回目で熊の後ろトン","④熊バタバタ"],
+  music:[["楽器隊","[熊叩いたらドコドコ、ピロピロ]"]]},
+ {n:12, t:"12:55", steps:["①狩人中央へ戻り南無南無","!②太鼓のカッの後きょろきょろ","③懲りずに女熊へ","!④叩くふり２回、３回目で熊の後ろトン","⑤熊バタバタ"],
+  music:[["楽器隊","[どんどんドンカッの後通常 →叩いたらまたドコピロ]"]]},
+ {n:13, t:"13:21", steps:["①狩人中央へ戻り南無南無","!②カッの後きょろきょろ","③うーん、ポン","④寝てる寝てる（右、左）","⑤酒飲むー","⑥寝る"],
+  music:[["楽器隊","[太鼓のカッ]の後通常 →寝る前ゆっくり＆小さく"]]},
+ {n:14, t:"14:13", steps:["①太鼓に合わせて女熊立つ","!②女熊近づく","③３回チョン","④狩人やめーい","⑤細かく後ずさり　止まる","⑥横で座って３回目でえーい"],
+  music:[["太鼓","小さくなってからドンドンドン（徐々に大きく）"],["楽器隊","[たったら足音に合わせて ピロロ ピロロ]"],["","③のところでドンドンドン　④で止まる　⑤でまたドンドンドン"]]},
+ {n:15, t:"14:58", steps:["!①コロンして　起き上がる","②起きて「うわー！」","③男熊へ向かいびっくり","④女熊の隣で助けてー","⑤南無南無 → 仰向け南無南無","⑥男熊狩人の横へ"],
+  music:[["","[狩人が起き上がったら楽器ストップ]"],["","うわーでドンドンドン"]]},
+ {n:16, t:"15:22", tGuess:true, steps:["①男熊３回足でチョン　狩人ゴロン","②女熊、頭で３回チョン　狩人ゴロン","!③女熊立って、男熊と向かい合う　舌出す","④舌出して上下に！","⑤狩人あおむけから、立ち膝へ　南無南無","⑥熊２頭頭でトン！"],
+  music:[["","[③でドンドンドンカッ！]から通常"]]},
+ {n:17, t:"15:55", steps:["①頭トンした勢いでお互い外側向き","②顔を見合わせてカチカチ","③そのまま後ろに下がって","④狩人熊の脚掴んで３回揺らす","⑤３回目で前へ倒れる","⑥熊は寝ていた場所へ行き座って待機"],
+  music:[["楽器隊","通常"]]},
+ {n:18, t:"16:30", steps:["①南無南無からきょろきょろ","②うーん、ぽん！","③よいしょよいしょ　右→戻る","④おいでおいで（女）","⑤おいでおいで（男）","⑥女→男の順でお酒"],
+  music:[["楽器隊","通常"]]},
+ {n:19, t:"17:02", steps:["①女熊は右回り","②男熊は左回り"],
+  music:[["楽器隊","通常"]]},
+ {n:20, t:"17:32", steps:["①男女入れ替わった状況できる","②狩人「よー、はい」","③熊ぴょん","④狩人「はい、はい、はい」","④女熊３歩下がる"],
+  music:[["楽器隊","通常"]]},
+ {n:21, t:"17:43", steps:["①狩人位置調整","!②狩人「よーはい」","③女熊周りおしち　男熊カチカチ","!　降りる"],
+  music:[["","[②のタイミングでどんどんどんどん・・・]"],["","[降りるタイミングでドン！カッ！]から通常"]]},
+ {n:22, t:"17:56", steps:["①女熊ひだりへ","②男熊みぎへ"],
+  music:[["楽器隊","通常"]]},
+ {n:23, t:"18:32", steps:["①狩人「よー、はい」","!②男熊ぴょん×３","③外側へごろん","④そのあと女熊狩人の右へ移動"],
+  music:[["楽器隊","[②からドンドン…からのドコドコピロピロ]"]]},
+ {n:24, t:"18:48", steps:["①狩人「よー、はい」","②女熊歩きおしち"],
+  music:[["楽器隊","[ドコ＆ピロ]"]]},
+ {n:25, t:"19:06", steps:["①狩人「よー、はい」","②男熊ぴょん×３","!③前へごろん","④女熊移動"],
+  music:[["楽器隊","[ドコ＆ピロ]"],["","[③ドンドンドン・・・]"]]},
+ {n:26, t:"19:16", steps:["①狩人「よー、はい」","②女熊ぴょん×３","!③前へごろん"],
+  music:[["楽器隊","[ドコ＆ピロ]"],["","[③ドンドンドン・・・]"]]},
+ {n:27, t:"19:27", steps:["①狩人「よー、はい」","!②男熊おしち","③女熊足どんどん","④祝い舞へ"],
+  music:[["楽器隊","[ドコ＆ピロ]"],["","[②ドンドンドンドン・・・　降りるタイミングでドン、カッ]　④へ"]]},
+ {n:28, t:"19:34", tGuess:true, steps:["①狩人「よー、はい」","②ダブルおしち"],
+  music:[["","[スタンバって、狩人動いたら、ドンドンドン・・・]"],["","[着地に合わせてドン！]"]],
+  note:"動き表には時刻の記入がないため、動画を見て 19:34 ごろ（狩人「よー、はい」）とした目安です。"},
+];
+// 場面28のあと（19:42ごろ〜）は熊が客席へ。動き表にはない部分。
+const AFTER = 19*60+42;
+
+const toSec = s => { const [m,x]=s.split(":").map(Number); return m*60+x; };
+const fmt = sec => { sec=Math.max(0,Math.floor(sec)); return Math.floor(sec/60)+":"+String(sec%60).padStart(2,"0"); };
+S.forEach((s,i)=>{ s.start=toSec(s.t); });
+S.forEach((s,i)=>{ s.end = i<S.length-1 ? S[i+1].start : AFTER; });
+
+// 場面16は動き表に時刻がないので、ここで目安を入れている → 本文で明記
+S[15].note = "動き表には時刻の記入がないため、動画を見て 15:22 ごろ（男熊が狩人の横に着いて足でチョンを始める所）とした目安です。";
+
+const esc = t => t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function roles(t){
+  return esc(t)
+    .replace(/女熊/g,'<span class="r-onna">女熊</span>')
+    .replace(/男熊/g,'<span class="r-otoko">男熊</span>')
+    .replace(/狩人/g,'<span class="r-kari">狩人</span>')
+    .replace(/（女）/g,'（<span class="r-onna">女</span>）').replace(/（男）/g,'（<span class="r-otoko">男</span>）');
+}
+function musicHtml(m){
+  return m.map(([who,txt])=>`<div><span class="who">${who||"楽器"}</span>${esc(txt).replace(/\[(.+?)\]/g,'<span class="k">$1</span>')}</div>`).join("");
+}
+function cardHtml(s, withNext){
+  const steps = s.steps.map(x=> x.startsWith("!") ? `<li class="key">${roles(x.slice(1))}</li>` : `<li>${roles(x)}</li>`).join("");
+  const nx = S[s.n]; // 次の場面
+  return `<div class="card" id="c${s.n}">
+    <h2>場面${s.n}<span class="t">${s.tGuess?"目安 ":""}${s.t}〜</span>${s.call?`<span class="call">${esc(s.call)}</span>`:""}
+      <button data-go="${s.n}">ここから再生</button></h2>
+    <img src="zu/zu${String(s.n).padStart(2,"0")}.png" alt="場面${s.n}の立ち位置図">
+    <ul class="steps">${steps}</ul>
+    <div class="music">${musicHtml(s.music)}</div>
+    ${s.note?`<div class="note">※${s.note}</div>`:""}
+    ${withNext && nx ? `<div class="next">つぎ → <b>場面${nx.n}</b>（${nx.t}）${roles(nx.steps[0].replace(/^!/,""))}</div>`:""}
+    ${withNext && !nx ? `<div class="next">このあと 19:42ごろから熊が客席へ（動画はここまで）</div>`:""}
+  </div>`;
+}
+
+const v = document.getElementById("v");
+const panel = document.getElementById("panel");
+let mode = "now", cur = -1, loop = false, stopEach = false;
+
+// 場面バー
+const track = document.getElementById("track"), head = document.getElementById("head");
+const T0 = OFFSET, T1 = CLIP_END, span = T1-T0;
+const pct = t => ((t-T0)/span*100)+"%";
+function addSeg(a,b,label,cls,title){
+  const d=document.createElement("div"); d.className="seg "+cls; d.style.left=pct(a); d.style.width=`calc(${pct(b)} - ${pct(a)})`;
+  d.textContent=label; d.title=title; track.insertBefore(d,head); return d;
+}
+addSeg(T0,S[0].start,"前","out","はじまる前");
+const segs = S.map((s,i)=>addSeg(s.start,s.end,s.n,i%2?"alt":"",`場面${s.n}（${s.t}〜）`));
+if(T1-AFTER>1) addSeg(AFTER,T1,"その後","out","動き表にない部分");
+track.addEventListener("click",e=>{
+  const r=track.getBoundingClientRect(); seek(T0+(e.clientX-r.left)/r.width*span);
+});
+
+function sceneAt(t){ for(let i=S.length-1;i>=0;i--) if(t>=S[i].start) return t<S[i].end?i:-2; return -1; }
+function seek(t){ v.currentTime = Math.min(Math.max(t,T0),T1-0.1)-OFFSET; }
+function goScene(i, play=true){ i=Math.max(0,Math.min(S.length-1,i)); seek(S[i].start+0.05); if(play) v.play(); }
+
+function render(){
+  if(mode==="all"){
+    panel.innerHTML = S.map(s=>cardHtml(s,false)).join("");
+  }else{
+    panel.innerHTML = cur>=0 ? cardHtml(S[cur],true)
+      : cur===-1 ? `<div class="card"><h2>はじまる前</h2><div class="note">6:00 から場面1。下の場面バーか「場面 ▶」で選べます。</div></div>`
+      : `<div class="card"><h2>動き表のあと</h2><div class="note">19:42ごろから熊が客席へ。動画はここまでです。</div></div>`;
+  }
+  markCur();
+}
+function markCur(){
+  segs.forEach((d,i)=>d.classList.toggle("cur",i===cur));
+  panel.querySelectorAll(".card").forEach(c=>c.classList.toggle("cur",c.id==="c"+(cur+1)));
+  if(mode==="all" && cur>=0){ const c=document.getElementById("c"+(cur+1)); c && c.scrollIntoView({block:"nearest",behavior:"smooth"}); }
+}
+
+const badge=document.getElementById("badge"), timeEl=document.getElementById("time");
+let lastScene=null;
+function tick(){
+  const t = v.currentTime + OFFSET;
+  head.style.left = pct(t);
+  timeEl.textContent = fmt(t);
+  // くり返し・場面ごとに止める
+  if(lastScene!==null && lastScene>=0 && !v.paused){
+    const s=S[lastScene];
+    if(t>=s.end-0.05){
+      if(loop){ seek(s.start+0.05); return; }
+      if(stopEach){ v.pause(); seek(s.end-0.15); return; }
+    }
+  }
+  const i = sceneAt(t);
+  badge.innerHTML = i>=0 ? `場面${S[i].n}<small>${S[i].t}〜</small>` : (i===-1?"はじまる前":"動き表のあと");
+  if(i!==cur){ cur=i; if(mode==="now") render(); else markCur(); }
+  lastScene = i;
+}
+v.addEventListener("timeupdate",tick);
+v.addEventListener("seeked",()=>{ lastScene=null; tick(); });
+(function raf(){ if(!v.paused) tick(); requestAnimationFrame(raf); })();
+v.addEventListener("play",()=>document.getElementById("play").textContent="⏸ 停止");
+v.addEventListener("pause",()=>document.getElementById("play").textContent="▶ 再生");
+v.addEventListener("error",()=>{ document.getElementById("err").style.display="block"; v.style.display="none"; });
+// index.html#14 のように開くと、その場面から始まる
+v.addEventListener("loadedmetadata",()=>{
+  const h=parseInt(location.hash.slice(1),10);
+  if(h>=1 && h<=S.length) seek(S[h-1].start+0.05);
+  else if(v.currentTime<1) seek(S[0].start-5);
+});
+
+const playPause=()=> v.paused?v.play():v.pause();
+document.getElementById("play").onclick=playPause;
+document.getElementById("back").onclick=()=>seek(v.currentTime+OFFSET-5);
+document.getElementById("fwd").onclick=()=>seek(v.currentTime+OFFSET+5);
+document.getElementById("prev").onclick=()=>goScene(cur>=0?cur-1:(cur===-2?S.length-1:0));
+document.getElementById("next").onclick=()=>goScene(cur>=0?cur+1:(cur===-1?0:S.length-1));
+function setRate(r){ v.playbackRate=r; document.querySelectorAll("[data-rate]").forEach(b=>b.classList.toggle("on",+b.dataset.rate===r)); }
+document.querySelectorAll("[data-rate]").forEach(b=>b.onclick=()=>setRate(+b.dataset.rate));
+const loopBtn=document.getElementById("loop"), stopBtn=document.getElementById("stop"), mirBtn=document.getElementById("mirror");
+function toggleLoop(){ loop=!loop; if(loop){stopEach=false;stopBtn.classList.remove("on");} loopBtn.classList.toggle("on",loop); }
+function toggleStop(){ stopEach=!stopEach; if(stopEach){loop=false;loopBtn.classList.remove("on");} stopBtn.classList.toggle("on",stopEach); }
+function toggleMirror(){ v.classList.toggle("mirror"); const on=v.classList.contains("mirror");
+  mirBtn.classList.toggle("on",on); document.getElementById("vwrap").classList.toggle("isMirror",on); }
+loopBtn.onclick=toggleLoop; stopBtn.onclick=toggleStop; mirBtn.onclick=toggleMirror;
+
+const tabNow=document.getElementById("tabNow"), tabAll=document.getElementById("tabAll");
+tabNow.onclick=()=>{mode="now";tabNow.classList.add("on");tabAll.classList.remove("on");render();};
+tabAll.onclick=()=>{mode="all";tabAll.classList.add("on");tabNow.classList.remove("on");render();};
+document.getElementById("printBtn").onclick=()=>{ if(mode!=="all") tabAll.onclick(); setTimeout(()=>window.print(),300); };
+panel.addEventListener("click",e=>{ const b=e.target.closest("[data-go]"); if(b) goScene(+b.dataset.go-1); });
+
+document.addEventListener("keydown",e=>{
+  if(e.target.tagName==="INPUT") return;
+  const k=e.key;
+  if(k===" "){ e.preventDefault(); playPause(); }
+  else if(k==="ArrowLeft"){ e.preventDefault(); seek(v.currentTime+OFFSET-5); }
+  else if(k==="ArrowRight"){ e.preventDefault(); seek(v.currentTime+OFFSET+5); }
+  else if(k==="ArrowUp"||k==="PageUp"){ e.preventDefault(); document.getElementById("prev").onclick(); }
+  else if(k==="ArrowDown"||k==="PageDown"){ e.preventDefault(); document.getElementById("next").onclick(); }
+  else if(k==="l"||k==="L") toggleLoop();
+  else if(k==="s"||k==="S") toggleStop();
+  else if(k==="m"||k==="M") toggleMirror();
+  else if(k==="1") setRate(0.5); else if(k==="2") setRate(0.75); else if(k==="3") setRate(1);
+});
+render();
+</script>
+</body>
+</html>
